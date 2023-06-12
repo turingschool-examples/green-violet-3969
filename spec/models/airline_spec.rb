@@ -29,11 +29,11 @@ RSpec.describe Airline, type: :model do
 
     describe "#adult_passengers" do
       it "returns a distinct list of all adult passengers >= 18 with flights on that airline" do
-        expect(frontier.adult_passengers).to eq([passenger2, passenger3])
-        expect(frontier.adult_passengers).to_not eq([passenger2, passenger3, passenger3])
-        expect(frontier.adult_passengers).to_not eq([passenger1, passenger2, passenger3, passenger3])
+        expect(frontier.adult_passengers_distinct).to eq([passenger2, passenger3])
+        expect(frontier.adult_passengers_distinct).to_not eq([passenger2, passenger3, passenger3])
+        expect(frontier.adult_passengers_distinct).to_not eq([passenger1, passenger2, passenger3, passenger3])
 
-        expect(southwest.adult_passengers).to eq([passenger4])
+        expect(southwest.adult_passengers_distinct).to eq([passenger4])
       end
     end
   end
