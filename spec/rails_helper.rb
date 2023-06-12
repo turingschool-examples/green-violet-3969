@@ -1,3 +1,29 @@
+def test_data
+  @united = Airline.create!(name: "United Airlines")
+  @alaska = Airline.create!(name: "Alaska Airlines")
+
+  @flight1 = @united.flights.create!(number: 1, date: "08/03/20", departure_city: "Denver", arrival_city:, "San Diego")
+  @flight2 = @united.flights.create!(number: 2, date: "06/07/20", departure_city: "Liverpool", arrival_city:, "New York")
+
+  @flight3 = @alaska.flights.create!(number: 3, date: "05/10/20", departure_city: "Reno", arrival_city:, "Seattle")
+  @flight4 = @alaska.flights.create!(number: 4, date: "02/11/20", departure_city: "Grand Junction", arrival_city:, "Denver")
+
+  @pass1 = Passenger.create!(name: "Jim Bob", age: 25)
+  @pass2 = Passenger.create!(name: "Tim Timothy", age: 47)
+  @pass3 = Passenger.create!(name: "Bill Billson", age: 15)
+  @pass4 = Passenger.create!(name: "Will Williamson", age: 39)
+
+  FlightPassenger.create!(flight: @flight1, passenger: @pass1)
+  
+  FlightPassenger.create!(flight: @flight2, passenger: @pass1)
+  FlightPassenger.create!(flight: @flight2, passenger: @pass2)
+
+  FlightPassenger.create!(flight: @flight3, passenger: @pass3)
+
+  FlightPassenger.create!(flight: @flight4, passenger: @pass3)
+  FlightPassenger.create!(flight: @flight4, passenger: @pass4)
+end
+
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
