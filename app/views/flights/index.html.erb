@@ -1,0 +1,9 @@
+<h1 style="background-color:grey; border-top: solid black 2px;"><center>All Flights</h1>
+
+<% @flights.each do |flight| %>
+  <ul><b>Flight Number and Airline:</b> <%= flight.number %> <%= flight.airline.name %></ul>
+    <ul><b>Passengers:</b> <% flight.passengers.each do |passenger| %></ul>
+      <ol><%= passenger.name %></ol>
+    <% end %>
+    <br/>
+<% end %>
