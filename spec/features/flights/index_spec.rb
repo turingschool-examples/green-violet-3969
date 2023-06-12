@@ -1,13 +1,6 @@
 require "rails_helper"
 
 RSpec.describe "Flights Index Page" do 
-  # User Story 1, Flights Index Page
-
-  # As a visitor
-  # When I visit the flights index page
-  # I see a list of all flight numbers
-  # And next to each flight number I see the name of the Airline of that flight
-  # And under each flight number I see the names of all that flight's passengers
 
   before(:each) do 
     @frontier = Airline.create!(name: "Frontier")
@@ -50,11 +43,27 @@ RSpec.describe "Flights Index Page" do
       expect(page).to have_content(@pass_1.name)
       expect(page).to have_content(@pass_2.name)
     end
-    save_and_open_page
+
     within("#flight-#{@flight_2.id}") do
       expect(page).to have_content(@pass_3.name)
       expect(page).to have_content(@pass_4.name)
     end
   end
+
+  it "has a button to remove each passenger" do 
+    pass_flight_5 = PassengerFlight.create!(flight_id: @flight_2.id, passenger_id: @pass_1.id)
+    visit "/flights"
+    within("#flight-#{@flight_1.id}") do 
+      expect(page).to have_content(@pass_1.name)
+      click_button "Remove #{@pass_1.name}"
+      expect(current_path).to eq("/flights")
+      expect(page).to_not have_content(@pass_1.name)
+    end 
+    
+    within("#flight-#{@flight_2.id}") do 
+      expect(page).to have_content(@pass_1.name)
+    end
+  end
+
 
 end

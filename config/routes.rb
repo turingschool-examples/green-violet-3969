@@ -5,4 +5,7 @@ Rails.application.routes.draw do
   # root "articles#index"
 
   get "/flights", to: "flights#index"
+  resources :flights do 
+    resources :passengers, only: [:destroy], controller: 'flight_passengers'
+  end
 end

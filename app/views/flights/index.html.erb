@@ -5,6 +5,7 @@
     <p>Passengers: </p>
     <% flight.passengers.each do |passenger| %>
       <p><%= passenger.name %></p>
+      <p><%= button_to "Remove #{passenger.name}", flight_passenger_path(flight, passenger), method: :delete %></p>
     <% end %>
   </div>
 <% end %>
