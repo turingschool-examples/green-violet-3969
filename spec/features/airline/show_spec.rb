@@ -35,6 +35,6 @@ RSpec.describe "the airlines show page" do
     
     expect(page).to_not have_content("#{@passenger6.name}")
     expect(page).to_not have_content("#{@passenger2.name}")
-    expect(page).to_not have_content("#{@passenger10.name}")
+    expect(page).to_not have_content("#{@passenger9.name}")
   end
 end
