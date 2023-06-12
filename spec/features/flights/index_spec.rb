@@ -34,7 +34,7 @@ RSpec.describe "/flights, flights index page", type: :feature do
       within "#flight-#{flight2.id}" do
         expect(page).to have_content("Flight Number: #{flight2.number} - #{frontier.name}")
       end
-      
+
       within "#flight-#{flight3.id}" do
         expect(page).to have_content("Flight Number: #{flight3.number} - #{southwest.name}")
       end
@@ -66,6 +66,58 @@ RSpec.describe "/flights, flights index page", type: :feature do
         expect(page).to_not have_content(passenger2.name)
         expect(page).to_not have_content(passenger3.name)
         expect(page).to have_content(passenger4.name)
+      end
+    end
+
+    #userstory 2
+    it "can remove passenger from flight, passenger still shows up on other flights where not removed" do
+      visit "/flights"
+
+      within "#flight-#{flight1.id}" do
+        expect(page).to have_content("#{passenger1.name}")
+        expect(page).to have_button("Remove #{passenger1.name}")
+
+        expect(page).to have_content("#{passenger2.name}")
+        expect(page).to have_button("Remove #{passenger2.name}")
+
+        expect(page).to have_content("#{passenger3.name}")
+        expect(page).to have_button("Remove #{passenger3.name}")
+
+        expect(page).to_not have_content("#{passenger4.name}")
+        expect(page).to_not have_button("Remove #{passenger4.name}")
+      end
+
+      within "#flight-#{flight2.id}" do
+        expect(page).to have_content("Flight Number: #{flight2.number} - #{frontier.name}")
+        expect(page).to_not have_button("Remove #{passenger1.name}")
+        expect(page).to_not have_button("Remove #{passenger2.name}")
+
+        expect(page).to have_content("#{passenger3.name}")
+        expect(page).to have_button("Remove #{passenger3.name}")
+
+        expect(page).to have_content("#{passenger4.name}")
+        expect(page).to have_button("Remove #{passenger4.name}")
+
+        click_button "Remove #{passenger3.name}"
+      end
+
+      expect(current_path).to eq("/flights")
+
+      within "#flight-#{flight1.id}" do
+        expect(page).to have_button("Remove #{passenger1.name}")
+        expect(page).to have_button("Remove #{passenger2.name}")
+        expect(page).to have_content("#{passenger3.name}") #passenger is still on this flight
+        expect(page).to have_button("Remove #{passenger3.name}")
+        expect(page).to_not have_button("Remove #{passenger4.name}")
+      end
+
+      within "#flight-#{flight2.id}" do
+        expect(page).to have_content("Flight Number: #{flight2.number} - #{frontier.name}")
+        expect(page).to_not have_button("Remove #{passenger1.name}")
+        expect(page).to_not have_button("Remove #{passenger2.name}")
+        expect(page).to_not have_content("#{passenger3.name}") #passenger was removed from this flight, and should not show up
+        expect(page).to_not have_button("Remove #{passenger3.name}")
+        expect(page).to have_button("Remove #{passenger4.name}")
       end
     end
   end
