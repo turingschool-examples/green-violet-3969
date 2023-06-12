@@ -19,6 +19,7 @@ RSpec.describe "flights index" do
     @joe = Passenger.create!(name: "Joe", age: 20)
     @jill = Passenger.create!(name: "Jill", age: 30)
     @sam = Passenger.create!(name: "Sam", age: 10)
+    
 
 
     @fp1 = FlightPassenger.create!(flight: @denver, passenger: @abe)
@@ -54,15 +55,17 @@ RSpec.describe "flights index" do
   end
 
   it "displays a button next to each passenger to remove the passenger from the flight" do
+    @sue = Passenger.create!(name: "Sue", age: 50)
+    @fp7 = FlightPassenger.create!(flight: @dallas, passenger: @sue)
+    @fp8 = FlightPassenger.create!(flight: @toronto, passenger: @sue)
+    
     within ".flight_lists" do
-      expect(page).to have_content(@abe.name)
       expect(page).to have_button("Remove #{@abe.name}")
       expect(page).to have_button("Remove #{@bob.name}")
       expect(page).to have_button("Remove #{@bill.name}")
       expect(page).to have_button("Remove #{@joe.name}")
       expect(page).to have_button("Remove #{@jill.name}")
       expect(page).to have_button("Remove #{@sam.name}")
-
       click_button("Remove #{@abe.name}")
     end
 
@@ -73,7 +76,5 @@ RSpec.describe "flights index" do
       expect(page).to_not have_button("Remove #{@abe.name}")  
     end
   end
-
-
 
 end
