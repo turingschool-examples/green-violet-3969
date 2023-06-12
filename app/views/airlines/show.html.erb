@@ -1,0 +1,5 @@
+<h1><center><%= @airline.name %></h1>
+
+<% @airline.unique_adult_pass.each do |passenger| %>
+  <li><b>Passenger:</b> <%= passenger.name %></li>
+<% end %>

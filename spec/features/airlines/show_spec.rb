@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Airline, type: :model do
+RSpec.describe 'Airline Show Page', type: :feature do
   let!(:delta) { Airline.create!(name: "Delta Airlines") }
   let!(:eva) { Airline.create!(name: "Eva Airlines") }
   let!(:united) { Airline.create!(name: "United Airlines") }
@@ -18,14 +18,13 @@ RSpec.describe Airline, type: :model do
   let!(:pass_flight_2) { PassengerFlight.create!(flight_id: flight721.id, passenger_id: pass_2.id) }
   let!(:pass_flight_3) { PassengerFlight.create!(flight_id: flight721.id, passenger_id: pass_3.id) }
 
-  describe "relationships" do
-    it {should have_many :flights}
-    it {should have_many(:passengers).through(:flights)}
-  end
+  describe 'displays airline attributes' do
+    it 'should display a unique list of adult passengers on flights on this airline' do
+      visit airline_path(delta)
 
-  describe "instance_methods" do
-    it '#unique_adult_pass' do
-    expect(delta.unique_adult_pass).to eq([pass_2, pass_3])
+      expect(page).to have_content(pass_2.name)
+      expect(page).to have_content(pass_3.name)
+      expect(page).to_not have_content(pass_1.name)
     end
   end
 end
