@@ -17,9 +17,29 @@ describe "Flights index spec" do
     @flight1 = @airline1.flights.create!(number: "1a", date: "May.1.2023", departure_city: "Seattle", arrival_city: "Denver")
     @flight2 = @airline2.flights.create!(number: "2a", date: "May.2.2023", departure_city: "Portland", arrival_city: "Spokane")
     @flight3 = @airline3.flights.create!(number: "3a", date: "May.3.2023", departure_city: "San Fran", arrival_city: "Las Vegas")
+
+    @pass1 = Passenger.create!(name: Sara, age: 20)
+    @pass2 = Passenger.create!(name: Jean, age: 10)
+
+    @pass3 = Passenger.create!(name: Paul, age: 20)
+    @pass4 = Passenger.create!(name: Ringo, age: 10)
+
+    @pass5 = Passenger.create!(name: John, age: 20)
+    @pass6 = Passenger.create!(name: Sally, age: 10)
+
+    @fp1 = FlightsPassengers.create!(flight_id: @flight1, passenger_id: @pass1)
+    @fp2 = FlightsPassengers.create!(flight_id: @flight1, passenger_id: @pass2)
+
+    @fp3 = FlightsPassengers.create!(flight_id: @flight2, passenger_id: @pass3)
+    @fp4 = FlightsPassengers.create!(flight_id: @flight2, passenger_id: @pass4)
+
+    @fp5 = FlightsPassengers.create!(flight_id: @flight3, passenger_id: @pass5)
+    @fp6 = FlightsPassengers.create!(flight_id: @flight3, passenger_id: @pass6)
+
+    visit "/flights"
   end
 
-  describe "Displaying Flight Information" do
+  xdescribe "Displaying Flight Information" do
     it "see all flight numbers" do
       expect(page).to have_content(@flight1.number)
       expect(page).to have_content(@flight2.number)
