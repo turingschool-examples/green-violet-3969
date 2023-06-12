@@ -8,6 +8,9 @@ RSpec.describe "/airlines/:id, airlines show page", type: :feature do
   let!(:southwest) { Airline.create!(name: "Southwest") }
   let!(:flight3) { southwest.flights.create!(number: "2799", date: "07/31/20", departure_city: "San Francisco", arrival_city: "Reno") }
 
+  let!(:kidsfly) { Airline.create!(name: "KidsFly") }
+  let!(:flight4) { kidsfly.flights.create!(number: "1234", date: "01/01/21", departure_city: "Grand Forks", arrival_city: "Orlando") }
+
   let!(:passenger1) { Passenger.create!(name: "Joe", age: 7) }
   let!(:passenger2) { Passenger.create!(name: "Michael", age: 32) }
   let!(:passenger3) { Passenger.create!(name: "Ashley", age: 27) }
@@ -21,6 +24,8 @@ RSpec.describe "/airlines/:id, airlines show page", type: :feature do
   let!(:fp5) { FlightPassenger.create!(flight_id: flight2.id, passenger_id: passenger4.id) }
   let!(:fp6) { FlightPassenger.create!(flight_id: flight3.id, passenger_id: passenger4.id) }
   let!(:fp7) { FlightPassenger.create!(flight_id: flight3.id, passenger_id: passenger5.id) }
+  let!(:fp8) { FlightPassenger.create!(flight_id: flight4.id, passenger_id: passenger5.id) }
+  let!(:fp9) { FlightPassenger.create!(flight_id: flight4.id, passenger_id: passenger1.id) }
 
   describe "as a visitor on the airlines show page" do
     it "displays all (distinct) adult passengers with flights on that airline" do
@@ -37,7 +42,14 @@ RSpec.describe "/airlines/:id, airlines show page", type: :feature do
 
       visit "/airlines/#{southwest.id}"
       expect(page).to have_content(southwest.name)
+      expect(page).to have_content("All Adult Passengers:")
       expect(page).to have_content(passenger4.name, count: 1)
+      expect(page).to_not have_content(passenger5.name)
+
+      visit "/airlines/#{kidsfly.id}"
+      expect(page).to have_content(kidsfly.name)
+      expect(page).to have_content("All Adult Passengers:")
+      expect(page).to_not have_content(passenger1.name)
       expect(page).to_not have_content(passenger5.name)
     end
   end
