@@ -47,5 +47,47 @@ RSpec.describe "flights index page", type: :feature do
         expect(page).to have_content(@passenger_5.name)
       end
     end
+
+    it "has link to remove each passenger from a given flight" do
+      within "#flight-#{@frontier_flight_1.flight_number}" do
+        expect(page).to have_content("Flight Number: #{@frontier_flight_1.flight_number} || Airline: #{@airline_1.name}")
+        expect(page).to have_content(@passenger_1.name)
+        expect(page).to have_content(@passenger_2.name)
+        expect(page).to have_button("Remove #{@passenger_1.name}")
+        expect(page).to have_button("Remove #{@passenger_2.name}")
+      end
+
+      within "#flight-#{@delta_flight_1.flight_number}" do
+        expect(page).to have_content("Flight Number: #{@delta_flight_1.flight_number} || Airline: #{@airline_2.name}")
+        expect(page).to have_content(@passenger_1.name)
+        expect(page).to have_content(@passenger_2.name)
+        expect(page).to have_content(@passenger_3.name)
+        expect(page).to have_content(@passenger_4.name)
+        expect(page).to have_content(@passenger_5.name)
+        expect(page).to have_button("Remove #{@passenger_1.name}")
+        expect(page).to have_button("Remove #{@passenger_2.name}")
+        expect(page).to have_button("Remove #{@passenger_3.name}")
+        expect(page).to have_button("Remove #{@passenger_4.name}")
+        expect(page).to have_button("Remove #{@passenger_5.name}")
+      end
+    end
+
+    it "can remove a passenger from a given flight" do
+      within "#flight-#{@frontier_flight_1.flight_number}" do
+        expect(page).to have_content("Flight Number: #{@frontier_flight_1.flight_number} || Airline: #{@airline_1.name}")
+        expect(page).to have_content(@passenger_1.name)
+        expect(page).to have_content(@passenger_2.name)
+
+        click_button("Remove #{@passenger_1.name}")
+      end
+
+      expect(current_path).to eq(flights_path)
+
+      within "#flight-#{@frontier_flight_1.flight_number}" do
+        expect(page).to have_content("Flight Number: #{@frontier_flight_1.flight_number} || Airline: #{@airline_1.name}")
+        expect(page).to_not have_content(@passenger_1.name)
+        expect(page).to have_content(@passenger_2.name)
+      end
+    end
   end
 end
