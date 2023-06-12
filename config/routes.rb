@@ -10,4 +10,6 @@ Rails.application.routes.draw do
   #should be to flights/passengers
   get "flights/:id/passengers/:id", to: "passengers#destroy"
 
+  resources :airlines, only: [:show]
+
 end
