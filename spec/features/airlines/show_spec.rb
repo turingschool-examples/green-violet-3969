@@ -59,7 +59,6 @@ RSpec.describe 'Airline Show Page' do
         expect(page).to_not have_content(@passenger10.name)
         expect(page).to_not have_content(@passenger11.name)
         expect(page).to_not have_content(@passenger12.name)
-        save_and_open_page
       end
     end
   end
