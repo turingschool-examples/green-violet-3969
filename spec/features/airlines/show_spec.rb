@@ -8,6 +8,8 @@ RSpec.describe "Airline Show Page", type: :feature do
   describe "When I visit an airline's show page" do
     it "I see a unique list of adult passengers and no children" do
       visit(airline_path(@alaska))
+      expect(page).to have_content("#{@alaska.name}'s Show Page")
+      expect(page).to have_content("Airline Passengers:")
       expect(page).to have_content(@pass1.name)
       expect(page).to have_content(@pass2.name)
       expect(page).to have_content(@pass4.name)
