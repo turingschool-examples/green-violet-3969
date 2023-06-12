@@ -1,8 +1,6 @@
 <body>
-  <% @flight.each do |info|
-    <div id="{@info.number}">
-        <li> <%= info.number %> <%= info.airline_name %> </li>
-        <li> <%= info.
-      end
-    </div>
-  </body>
+  <% @flight.each do |info| %>
+    <%= info.number %>
+    <% end %>
+
+</body>

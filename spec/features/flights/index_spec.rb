@@ -18,51 +18,49 @@ describe "Flights index spec" do
     @flight2 = @airline2.flights.create!(number: "2a", date: "May.2.2023", departure_city: "Portland", arrival_city: "Spokane")
     @flight3 = @airline3.flights.create!(number: "3a", date: "May.3.2023", departure_city: "San Fran", arrival_city: "Las Vegas")
 
-    @pass1 = Passenger.create!(name: Sara, age: 20)
-    @pass2 = Passenger.create!(name: Jean, age: 10)
+    @pass1 = Passenger.create!(name: "Sara", age: 20)
+    @pass2 = Passenger.create!(name: "Jean", age: 10)
 
-    @pass3 = Passenger.create!(name: Paul, age: 20)
-    @pass4 = Passenger.create!(name: Ringo, age: 10)
+    @pass3 = Passenger.create!(name: "Paul", age: 20)
+    @pass4 = Passenger.create!(name: "Ringo", age: 10)
 
-    @pass5 = Passenger.create!(name: John, age: 20)
-    @pass6 = Passenger.create!(name: Sally, age: 10)
+    @pass5 = Passenger.create!(name: "John", age: 20)
+    @pass6 = Passenger.create!(name: "Sally", age: 10)
 
-    @fp1 = FlightsPassengers.create!(flight_id: @flight1, passenger_id: @pass1)
-    @fp2 = FlightsPassengers.create!(flight_id: @flight1, passenger_id: @pass2)
+    @fp1 = FlightsPassenger.create(flight_id: @flight1.id, passenger_id: @pass1.id)
+    @fp2 = FlightsPassenger.create(flight_id: @flight1.id, passenger_id: @pass2.id)
 
-    @fp3 = FlightsPassengers.create!(flight_id: @flight2, passenger_id: @pass3)
-    @fp4 = FlightsPassengers.create!(flight_id: @flight2, passenger_id: @pass4)
+    @fp3 = FlightsPassenger.create(flight_id: @flight2.id, passenger_id: @pass3.id)
+    @fp4 = FlightsPassenger.create(flight_id: @flight2.id, passenger_id: @pass4.id)
 
-    @fp5 = FlightsPassengers.create!(flight_id: @flight3, passenger_id: @pass5)
-    @fp6 = FlightsPassengers.create!(flight_id: @flight3, passenger_id: @pass6)
+    @fp5 = FlightsPassenger.create(flight_id: @flight3.id, passenger_id: @pass5.id)
+    @fp6 = FlightsPassenger.create(flight_id: @flight3.id, passenger_id: @pass6.id)
 
-    visit "/flights"
   end
-
-  xdescribe "Displaying Flight Information" do
     it "see all flight numbers" do
-      expect(page).to have_content(@flight1.number)
-      expect(page).to have_content(@flight2.number)
-      expect(page).to have_content(@flight3.number)
+      visit "/flights"
+      # expect(page).to have_content(@flight1.number)
+      save_and_open_page
+      # expect(page).to have_content(@flight2.number)
+      # expect(page).to have_content(@flight3.number)
     end
 
-  #   it "see name of Airline next to flight number"
-  #   within "#flight-#{@flight1.id}" do
-  #     expect(page).to have_content(@airline1.name)
-  #     expect(page).to_not have_content(@airline2.name)
-  #     expect(page).to_not have_content(@airline3.name)
-  #   end
+    #   it "see name of Airline next to flight number"
+    #   within "#flight-#{@flight1.id}" do
+    #     expect(page).to have_content(@airline1.name)
+    #     expect(page).to_not have_content(@airline2.name)
+    #     expect(page).to_not have_content(@airline3.name)
+    #   end
 
-  #   within "#flight-#{@flight2.id}" do
-  #     expect(page).to have_content(@airline2.name)
-  #     expect(page).to_not have_content(@airline3.name)
-  #     expect(page).to_not have_content(@airline1.name)
-  #   end
+    #   within "#flight-#{@flight2.id}" do
+    #     expect(page).to have_content(@airline2.name)
+    #     expect(page).to_not have_content(@airline3.name)
+    #     expect(page).to_not have_content(@airline1.name)
+    #   end
 
-  #   within "#flight-#{@flight3.id}" do
-  #     expect(page).to have_content(@airline3.name)
-  #     expect(page).to_not have_content(@airline1.name)
-  #     expect(page).to_not have_content(@airline2.name)
-  #   end
-  end
+    #   within "#flight-#{@flight3.id}" do
+    #     expect(page).to have_content(@airline3.name)
+    #     expect(page).to_not have_content(@airline1.name)
+    #     expect(page).to_not have_content(@airline2.name)
+    #   end
 end
