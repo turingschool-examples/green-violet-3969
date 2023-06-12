@@ -9,3 +9,11 @@ class Passenger < ApplicationRecord
       .distinct.to_a.uniq { |passenger| passenger.name }
   end
 end
+
+  # def self.sorted_by_flight_count(airline)
+  #   joins(:flights)
+  #     .where(flights: { airline: airline })
+  #     .select('passengers.*, COUNT(flights.id) AS flight_count')
+  #     .group('passengers.id')
+  #     .order('flight_count DESC')
+  # end

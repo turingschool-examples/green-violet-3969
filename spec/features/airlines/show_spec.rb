@@ -27,6 +27,7 @@ RSpec.describe "airline#show", type: :feature do
       expect(page).not_to have_content(@passenger3.name)
     end
   end
+end
 
   # Extension, Frequent Flyers
 
@@ -36,7 +37,3 @@ RSpec.describe "airline#show", type: :feature do
   # by the number of flights each passenger has taken on the airline from most to least
 
   # (Note: you should only make 1 database query to retrieve the sorted list of passengers)
-
-
-
-end

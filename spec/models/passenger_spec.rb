@@ -31,3 +31,29 @@ RSpec.describe Passenger, type: :model do
     end
   end
 end
+#     describe '.sorted_by_flight_count' do
+#       let(:airline) { Airline.create!(name: 'Test Airline') }
+
+#       it 'returns passengers sorted by the number of flights taken on the airline' do
+#         passenger1 = Passenger.create!(name: 'Passenger 1', age: 30)
+#         passenger2 = Passenger.create!(name: 'Passenger 2', age: 25)
+#         passenger3 = Passenger.create!(name: 'Passenger 3', age: 40)
+
+#         flight1 = Flight.create!(number: '123', airline: airline)
+#         flight2 = Flight.create!(number: '456', airline: airline)
+#         flight3 = Flight.create!(number: '789', airline: airline)
+
+#         PassengerFlight.create!(passenger: passenger1, flight: flight1)
+#         PassengerFlight.create!(passenger: passenger1, flight: flight2)
+#         PassengerFlight.create!(passenger: passenger2, flight: flight1)
+#         PassengerFlight.create!(passenger: passenger3, flight: flight1)
+#         PassengerFlight.create!(passenger: passenger3, flight: flight2)
+#         PassengerFlight.create!(passenger: passenger3, flight: flight3)
+
+#         sorted_passengers = Passenger.sorted_by_flight_count(airline)
+
+#         expect(sorted_passengers).to eq([passenger3, passenger1, passenger2])
+#       end
+#     end
+#   end
+# end
