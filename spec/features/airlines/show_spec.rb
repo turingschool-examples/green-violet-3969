@@ -14,6 +14,8 @@ RSpec.describe "Airlines Show Page", type: :feature do
     @passenger3 = Passenger.create!(name: "Circe", age: 3)
     @passenger4 = Passenger.create!(name: "K.D.", age: 37)
     @passenger5 = Passenger.create!(name: "Bob", age: 38)
+    @passenger6 = Passenger.create!(name: "Ryan", age: 35)
+    @passenger7 = Passenger.create!(name: "Brianna", age: 36)
 
     @pass_flight1 = PassengerFlight.create!(passenger_id: @passenger1.id, flight_id: @flight1.id)
     @pass_flight2 = PassengerFlight.create!(passenger_id: @passenger2.id, flight_id: @flight1.id)
@@ -35,7 +37,7 @@ RSpec.describe "Airlines Show Page", type: :feature do
     visit airline_path(@airline1)
   end
   it "displays a unique list of adult passengers sorted by number of flights taken descending" do 
-
+save_and_open_page
     expect(page).to have_content("Airline: #{@airline1.name}")
     expect(page).to have_content("Passengers:")
     expect("K.D.").to appear_before("Bob")

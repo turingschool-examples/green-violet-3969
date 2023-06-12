@@ -1,7 +1,8 @@
 <h1>Airline: <%= @airline.name %></h1>
 <h3>Passengers:</h3>
 <ul>
-  <% @airline.passenger_names.each do |name| %>
-    <li><%= name %></li>
+  <% @airline.frequent_flyers.each do |passenger| %>
+    <li><%= passenger.name %></li>
+    <p>Number of flights<%= passenger.flights %></p>
   <% end %>
 </ul>
