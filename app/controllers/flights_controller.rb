@@ -3,6 +3,10 @@ class FlightsController < ApplicationController
     @flights = Flight.all
   end
 
+  def show
+    @flight = Flight.find(params[:id])
+  end
+
   def destroy
     @flight = Flight.find(params[:id])
     passenger_flights = @flight.passenger_flights.all
