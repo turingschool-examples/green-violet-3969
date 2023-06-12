@@ -5,6 +5,7 @@ RSpec.describe Airline, type: :model do
     it {should have_many :flights}
     it {should have_many(:passengers).through(:flights)}
 
+  it 'uniq_passengers_list method' do
     airline1 = Airline.create!(name: 'Southwest')
     airline2 = Airline.create!(name: 'Delta')
     airline3 = Airline.create!(name: 'United')
@@ -21,9 +22,8 @@ RSpec.describe Airline, type: :model do
     FlightPassenger.create!(flight: flight2, passenger: passenger3)
     FlightPassenger.create!(flight: flight2, passenger: passenger4)
     FlightPassenger.create!(flight: flight3, passenger: passenger1)
-
-    it 'uniq_passengers_list method' do
-      expect(airline1.uniq_passengers_list).to eq([passenger2, passenger3, passenger4])
+  
+    expect(airline1.uniq_passengers_list).to eq([passenger2, passenger3, passenger4])
     end
   end
 end
