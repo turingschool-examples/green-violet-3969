@@ -28,11 +28,13 @@ RSpec.describe "Airlines Show Page", type: :feature do
 
     visit airline_path(@airline1)
   end
-  it "displays a unique list of adult passengers" do 
+  it "displays a unique list of adult passengers sorted by number of flights taken descending" do 
 
     expect(page).to have_content("Airline: #{@airline1.name}")
     expect(page).to have_content("Passengers:")
-    expect(page).to have_content("K.D.")
-    expect(page).to have_content("Bob")
+    expect("K.D.").to appear_before("Bob")
+    expect("Bob").to appear_before("Brianna")
+    expect("Brianna").to appear_before("Ryan")
+    expect("Ryan").to_not appear_before("K.D.")
   end
 end
