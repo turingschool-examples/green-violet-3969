@@ -4,7 +4,12 @@
       <li><h1>Flight Number: <%= flight.flight_number %> || Airline: <%= flight.airline.name %> </h1></li>
         <ul>
           <% flight.passengers.each do |passenger| %>
-            <li><%= passenger.name %></li>
+            <li><%= passenger.name %> <%= form_with url: flight_passenger_path(flight, passenger), method: :delete do |f| %>
+                                        <%= f.hidden_field :flight_id, value: flight.id %>
+                                        <%= f.hidden_field :passenger_id, value: passenger.id %>
+                                        <%= f.submit  "Remove #{passenger.name}" %>
+                                      <% end %>
+            </li>
           <% end %>
         </ul>
     </div>
