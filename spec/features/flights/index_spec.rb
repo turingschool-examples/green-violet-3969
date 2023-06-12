@@ -21,6 +21,8 @@ RSpec.describe "Flights Index Page" do
     @pf3 = PassengerFlight.create!(passenger: @passenger_3, flight: @flight_2)
     @pf4 = PassengerFlight.create!(passenger: @passenger_4, flight: @flight_2)
     @pf5 = PassengerFlight.create!(passenger: @passenger_5, flight: @flight_3)
+    @pf6 = PassengerFlight.create!(passenger: @passenger_1, flight: @flight_3)
+
   end
 
   describe "As a visitor, when I visit the flights index page" do
@@ -34,7 +36,7 @@ RSpec.describe "Flights Index Page" do
 
     it "also shows the Airline of that flight next to each number and the names of all the passengers on that flight" do
       visit "/flights"
-      save_and_open_page
+
       within "#flight-#{@flight_1.id}" do
         expect(page).to have_content("Flight Number: #{@flight_1.number}")
         expect(page).to have_content("Airline: #{@sw.name}")
@@ -50,6 +52,28 @@ RSpec.describe "Flights Index Page" do
         expect(page).to have_content(@passenger_4.name)
         expect(page).to_not have_content(@passenger_5.name)
       end
+    end
+
+    it "displays a button to remove that passenger from that flight" do
+      visit "/flights"
+
+      within "#flight-#{@flight_1.id}"do
+       expect(page).to have_button("Remove #{@passenger_1.name}")
+      end
+    end
+
+    it "allows me to click that button and I no longer see that passenger on that flight but still see the passenger listed under other flights" do
+      visit "/flights"
+
+      within "#flight-#{@flight_1.id}" do
+        expect(page).to have_content(@passenger_1.name)
+
+        click_button "Remove #{@passenger_1.name}"
+        expect(page).to_not have_content(@passenger_1.name)
+      end
+
+      expect(current_path).to eq("/flights")
+      expect(page).to have_content(@passenger_1.name)
     end
   end
 end

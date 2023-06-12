@@ -4,7 +4,11 @@
 <section id="flight-<%= flight.id %>">
   <p>Flight Number: <%= flight.number %> Airline: <%= flight.airline.name %>
     <p>Passengers: <% flight.passengers.each do |passenger| %></p>
-      <p><%= passenger.name %></p>
-    <% end %>
+      <p><%= passenger.name %><%= form_with url: "/passenger_flights", method: :delete, local: true do |f| %>
+                                      <%= f.hidden_field :flight_id, value: flight.id %>
+                                      <%= f.hidden_field :passenger_id, value: passenger.id %>
+                                      <%= f.submit "Remove #{passenger.name}" %>
+                              <% end %>
+                  <% end %>
 </section>
 <% end %>
