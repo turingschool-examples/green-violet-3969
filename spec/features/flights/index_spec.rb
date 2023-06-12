@@ -20,7 +20,7 @@ RSpec.describe 'flight index page' do
     FlightPassenger.create!(flight: flight3, passenger: passenger1)
 
     visit '/flights'
-
+save_and_open_page
     within "#flight_info-#{flight1.id}" do
       expect(page).to have_content(flight1.number)
       expect(page).to have_content(airline1.name)
