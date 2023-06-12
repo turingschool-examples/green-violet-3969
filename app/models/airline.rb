@@ -11,9 +11,9 @@ class Airline < ApplicationRecord
       passengers.joins(:passenger_flights)
       .select('passengers.id, 
          passengers.name, 
-         count(passenger_flights.id) as flights')
+         count(passenger_flights.id) as flight_count')
       .group('passengers.id')
       .where('passengers.age >=18')
-      .order('flights desc')
+      .order('flight_count desc')
    end
 end

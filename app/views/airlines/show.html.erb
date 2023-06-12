@@ -3,6 +3,6 @@
 <ul>
   <% @airline.frequent_flyers.each do |passenger| %>
     <li><%= passenger.name %></li>
-    <p>Number of flights<%= passenger.flights %></p>
+    <p>Number of flights: <%= passenger.flight_count %></p>
   <% end %>
 </ul>
