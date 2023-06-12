@@ -9,7 +9,10 @@
     <ul>
     <% flight.passengers.each do |passenger| %>
       <div id="passenger-<%= passenger.id %>">
-        <li><%= passenger.name %></li>
+        <li>
+          <%= passenger.name %>
+          <%= button_to "Remove #{passenger.name}", flight_passenger_path(flight, passenger), method: :delete %>
+        </li>
       </div>
     <% end %>
     </ul>
