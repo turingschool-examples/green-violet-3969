@@ -17,11 +17,14 @@ RSpec.describe "Flights Index Page" do
     @pass_flight_4 = PassengerFlight.create!(flight_id: @flight_2.id, passenger_id: @pass_4.id)
 
   end
+
   it "lists all flight numbers" do 
     visit "/flights" 
+
     within("#flight-#{@flight_1.id}") do 
       expect(page).to have_content(@flight_1.number)
     end 
+
     within("#flight-#{@flight_2.id}") do 
       expect(page).to have_content(@flight_2.number)
     end 
@@ -29,9 +32,11 @@ RSpec.describe "Flights Index Page" do
 
   it "has name of airline of the flight next to number" do 
     visit "/flights" 
+
     within("#flight-#{@flight_1.id}") do 
       expect(page).to have_content(@frontier.name)
     end 
+
     within("#flight-#{@flight_2.id}") do 
       expect(page).to have_content(@delta.name)
     end 
@@ -39,6 +44,7 @@ RSpec.describe "Flights Index Page" do
 
   it "has names of all flights passengers under each flight number" do 
     visit "/flights" 
+
     within("#flight-#{@flight_1.id}") do
       expect(page).to have_content(@pass_1.name)
       expect(page).to have_content(@pass_2.name)
@@ -53,9 +59,12 @@ RSpec.describe "Flights Index Page" do
   it "has a button to remove each passenger" do 
     pass_flight_5 = PassengerFlight.create!(flight_id: @flight_2.id, passenger_id: @pass_1.id)
     visit "/flights"
+    
     within("#flight-#{@flight_1.id}") do 
       expect(page).to have_content(@pass_1.name)
+
       click_button "Remove #{@pass_1.name}"
+
       expect(current_path).to eq("/flights")
       expect(page).to_not have_content(@pass_1.name)
     end 
