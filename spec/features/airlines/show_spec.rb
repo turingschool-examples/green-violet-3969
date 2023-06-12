@@ -1,11 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Airline, type: :model do
-  describe "relationships" do
-    it {should have_many :flights}
-    it {should have_many(:passengers).through(:flights)}
-  end
-
+RSpec.describe "airline show" do
   before :each do
     @sw = Airline.create!(name: "Southwest")
     @delta = Airline.create!(name: "Delta")
@@ -31,32 +26,33 @@ RSpec.describe Airline, type: :model do
     @fp3 = FlightPassenger.create!(flight: @chicago, passenger: @bill)
     @fp4 = FlightPassenger.create!(flight: @new_york, passenger: @joe)
     @fp5 = FlightPassenger.create!(flight: @toronto, passenger: @jill)
-    @fp7 = FlightPassenger.create!(flight: @dallas, passenger: @sam)
-    @fp8 = FlightPassenger.create!(flight: @dallas, passenger: @abe)
-    @fp9 = FlightPassenger.create!(flight: @dallas, passenger: @bob)
-    @fp10 = FlightPassenger.create!(flight: @dallas, passenger: @bill)
-    @fp11 = FlightPassenger.create!(flight: @dallas, passenger: @joe)
+    @fp6 = FlightPassenger.create!(flight: @dallas, passenger: @sam)
+  
   end
 
-  describe "instance methods" do 
-    describe "#list_adult_passengers" do 
-      it "returns a list of mechanics who are working on a ride at that park" do 
-        expect(@sw.list_adult_passengers).to eq([@abe.name, @bob.name])
-        expect(@sw.passengers.count).to eq(2)
-        expect(@sw.list_adult_passengers.count).to eq(2)
+  it "list each adult passenger (18 years OR older) on at least one flight for that airline" do 
+    visit airline_path(@sw)
 
-        expect(@delta.list_adult_passengers).to eq([@bill.name])
-        expect(@delta.passengers.count).to eq(2)
-        expect(@delta.list_adult_passengers.count).to eq(1)
+    within(".adult_passengers") do 
+      expect(page).to have_content(@abe.name)
+      expect(page).to have_content(@bob.name)
+      expect(page).to_not have_content(@bill.name)
+    end
 
-        expect(@spirit.list_adult_passengers).to eq([@abe.name, @bill.name, @bob.name, @jill.name])
-        expect(@spirit.passengers.count).to eq(6)
-        expect(@spirit.list_adult_passengers.count).to eq(4)
-      end
+    visit airline_path(@delta)
+
+    within(".adult_passengers") do 
+      expect(page).to have_content(@bill.name)
+      expect(page).to_not have_content(@joe.name)
+      expect(page).to_not have_content(@jill.name)
+    end
+
+    visit airline_path(@spirit)
+
+    within(".adult_passengers") do 
+      expect(page).to have_content(@jill.name)
+      expect(page).to_not have_content(@sam.name)
+      expect(page).to_not have_content(@bill.name)
     end
   end
-
-
 end
-
-

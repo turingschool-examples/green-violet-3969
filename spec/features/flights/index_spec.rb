@@ -28,36 +28,52 @@ RSpec.describe "flights index" do
     @fp5 = FlightPassenger.create!(flight: @toronto, passenger: @jill)
     @fp6 = FlightPassenger.create!(flight: @dallas, passenger: @sam)
     
-    # require 'pry'; binding.pry
-
-    
-    # visit flights_path
+    visit flights_path
   end
 
-  # it "can see a list of all the names of my items and not items for other merchants" do
-  #   expect(page).to have_content(@item_1.name)
-  #   expect(page).to have_content(@item_2.name)
-  #   expect(page).to have_content(@item_3.name)
-  #   expect(page).to have_content(@item_4.name)
+  it "can see a list of all the names of my items and not items for other merchants" do
+    within(".flight_lists") do 
+      expect(page).to have_content(@denver.number)
+      expect(page).to have_content(@sw.name)
+      expect(page).to have_content(@abe.name)
+      expect(page).to have_content(@houston.number)
+      expect(page).to have_content(@bob.name)
 
-  #   expect(page).to have_no_content(@item_5.name)
-  #   expect(page).to have_no_content(@item_6.name)
-  # end
+      expect(page).to have_content(@chicago.number)
+      expect(page).to have_content(@delta.name)
+      expect(page).to have_content(@bill.name)
+      expect(page).to have_content(@new_york.number)
+      expect(page).to have_content(@joe.name)
 
-  # it "shows the bachelorette's information" do
-  #   visit bachelorette_path(@bachelorette1)
+      expect(page).to have_content(@toronto.number)
+      expect(page).to have_content(@spirit.name)
+      expect(page).to have_content(@jill.name)
+      expect(page).to have_content(@dallas.number)
+      expect(page).to have_content(@sam.name)
+    end
+  end
 
-  #   within(".bachelorette_header") do
-  #     expect(page).to have_content(@bachelorette1.name)
-  #     expect(page).to have_content(@bachelorette1.season_number)
-  #     expect(page).to have_content("Description: A crazy season!")
-  #     expect(page).to_not have_content(@bachelorette2.name)
-      
-  #     click_link "Contestants"
-  #   end
+  it "displays a button next to each passenger to remove the passenger from the flight" do
+    within ".flight_lists" do
+      expect(page).to have_content(@abe.name)
+      expect(page).to have_button("Remove #{@abe.name}")
+      expect(page).to have_button("Remove #{@bob.name}")
+      expect(page).to have_button("Remove #{@bill.name}")
+      expect(page).to have_button("Remove #{@joe.name}")
+      expect(page).to have_button("Remove #{@jill.name}")
+      expect(page).to have_button("Remove #{@sam.name}")
 
-  #     expect(current_path).to eq(bachelorette_path(@bachelorette1))
-  # end
+      click_button("Remove #{@abe.name}")
+    end
+
+    expect(current_path).to eq(flights_path)
+
+    within ".flight_lists" do
+      expect(page).to_not have_content(@abe.name)
+      expect(page).to_not have_button("Remove #{@abe.name}")  
+    end
+  end
+
 
 
 end
