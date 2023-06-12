@@ -19,9 +19,34 @@ RSpec.describe "flights index" do
     visit "/flights"
     expect(page).to have_content("Flight number: 1234")
     expect(page).to have_content("Airline name: BlueJet")
-    expect(page).to have_content("Flight Passengers: Bob, Bill, Joe, Frank")
+    expect(page).to have_content("Flight Passengers:")
+    expect(page).to have_content("Bob")
+    expect(page).to have_content("Bill")
+    expect(page).to have_content("Joe")
+    expect(page).to have_content("Frank")
     expect(page).to have_content("Flight number: 1254")
     expect(page).to have_content("Airline name: Atled")
-    expect(page).to have_content("Flight Passengers: George, Jake, Aaron, Derek")
+    expect(page).to have_content("Flight Passengers:")
+    expect(page).to have_content("George")
+    expect(page).to have_content("Jake")
+    expect(page).to have_content("Aaron")
+    expect(page).to have_content("Derek")
   end
+
+  it "can remove passenger from flight" do
+    visit "/flights"
+    expect(page).to have_content("Flight Passengers:")
+    expect(page).to have_content("Bob")
+    expect(page).to have_content("Bill")
+    expect(page).to have_content("Joe")
+    expect(page).to have_content("Frank")
+    click_button "Remove Bob"
+    expect(current_path).to eq("/flights")
+    expect(page).to have_content("Flight Passengers:")
+    expect(page).to have_content("Bill")
+    expect(page).to have_content("Joe")
+    expect(page).to have_content("Frank")
+    expect(page).to_not have_content("Bob")
+  end
+
 end
