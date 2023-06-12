@@ -38,19 +38,20 @@ describe "Flights index spec" do
 
   end
     it "see all flight numbers" do
+      
       visit "/flights"
-      # expect(page).to have_content(@flight1.number)
+      expect(page).to have_content(@flight1.number)
+      expect(page).to have_content(@flight2.number)
+      expect(page).to have_content(@flight3.number)
       save_and_open_page
-      # expect(page).to have_content(@flight2.number)
-      # expect(page).to have_content(@flight3.number)
     end
 
-    #   it "see name of Airline next to flight number"
-    #   within "#flight-#{@flight1.id}" do
-    #     expect(page).to have_content(@airline1.name)
-    #     expect(page).to_not have_content(@airline2.name)
-    #     expect(page).to_not have_content(@airline3.name)
-    #   end
+    it "see name of Airline next to flight number"
+    # within("#{@flight1.name}") do
+    #   expect(page).to have_content(@airline1.name)
+    #   expect(page).to_not have_content(@airline2.name)
+    #   expect(page).to_not have_content(@airline3.name)
+    # end
 
     #   within "#flight-#{@flight2.id}" do
     #     expect(page).to have_content(@airline2.name)
