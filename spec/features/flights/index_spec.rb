@@ -21,12 +21,33 @@ end
     it "I see a list of all flight numbers And next to each flight number I see the name of the Airline of that flight
     And under each flight number I see the names of all that flight's passengers" do
     visit "/flights"
+
+    within("h1")do
+      expect(page).to have_content("Flights Index Page")
+    end
     
     within("#flight-info-#{@flight1.id}") do
       expect(page).to have_content("Airline: #{@frontier.name}")
       expect(page).to have_content("Flight Number: #{@flight1.number}")
       expect(page).to have_content("Passenger Name: #{@todd.name}")
       expect(page).to have_content("Passenger Name: #{@penny.name}")
+      expect(page).to_not have_content(@vivian.name)
+    end
+
+    within("#flight-info-#{@flight2.id}") do
+      expect(page).to have_content("Airline: #{@frontier.name}")
+      expect(page).to have_content("Flight Number: #{@flight2.number}")
+      expect(page).to have_content("Passenger Name: #{@todd.name}")
+      expect(page).to have_content("Passenger Name: #{@penny.name}")
+      expect(page).to have_content("Passenger Name: #{@vivian.name}")
+    end
+
+    within("#flight-info-#{@flight3.id}") do
+      expect(page).to have_content("Airline: #{@frontier.name}")
+      expect(page).to have_content("Flight Number: #{@flight3.number}")
+      expect(page).to_not have_content("Passenger Name: #{@todd.name}")
+      expect(page).to_not have_content("Passenger Name: #{@penny.name}")
+      expect(page).to_not have_content("Passenger Name: #{@vivian.name}")
     end
   end
   
