@@ -33,6 +33,7 @@ RSpec.describe "Airline's Show Page" do
     @fp_12 = FlightPassenger.create!(flight: @flight_4, passenger: @passenger_6) 
   end
 
+  # User Story 3
   it "displays a list of unique adult (age 18+) passengers that have flights on that airline" do
     visit airline_path(@airline_1)
 
