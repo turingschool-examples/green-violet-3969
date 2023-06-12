@@ -42,6 +42,7 @@ RSpec.describe Airline, type: :model do
     @fp_11 = FlightPassenger.create!(flight: @flight_4, passenger: @passenger_2) # minor
     @fp_12 = FlightPassenger.create!(flight: @flight_4, passenger: @passenger_6) 
   end
+  
   describe "instance methods" do
     it "#unique_adult_passengers" do
       expect(@airline_1.unique_adult_passengers).to eq([@passenger_3, @passenger_4, @passenger_5, @passenger_6])
