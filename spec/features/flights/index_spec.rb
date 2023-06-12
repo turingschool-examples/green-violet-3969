@@ -13,25 +13,35 @@ describe "Flights Index page" do
     @passenger3 = Passenger.create!(name: "Kara", age: 30 )
     @passenger4 = Passenger.create!(name: "Gertie", age: 4 )
     @pass_flight1 = PassengersFlight.create!(passenger_id: @passenger1.id, flight_id: @flight1.id)
-    @pass_flight2 = PassengersFlight.create!(passenger_id: @passenger2.id, flight_id: @flight2.id)
+    @pass_flight2 = PassengersFlight.create!(passenger_id: @passenger1.id, flight_id: @flight2.id)
     @pass_flight3 = PassengersFlight.create!(passenger_id: @passenger3.id, flight_id: @flight3.id)
     @pass_flight4 = PassengersFlight.create!(passenger_id: @passenger4.id, flight_id: @flight1.id)
   end
 
   describe "As a visitor, when I visit the flights index page" do
-    #US 1
+
     it "displays a list of all flight numbers" do
       visit flights_path
+      save_and_open_page
       expect(page).to have_content("Flights Index")
-
+      expect(page).to have_content(@flight1.number)
+      expect(page).to have_content(@flight2.number)
+      expect(page).to have_content(@flight3.number)
+      expect(page).to_not have_content(@flight4.number)
     end
-
     it "displays the name of the Airline next to each flight number" do
-
+      visit flights_path
+      expect(page).to have_content("Delta")
+      expect(page).to have_content("Southwest")
+      expect(page).to_not have_content("Southeast")
     end
 
     it "displays under each flight number the names of all the flight's passengers" do
-
+      visit flights_path
+      expect(page).to have_content(@passenger1.name)
+      expect(page).to have_content(@passenger4.name)
+      expect(page).to_not have_content(@passenger2.name)
+      expect(page).to have_content(@passenger3.name)
     end
   end
 end
