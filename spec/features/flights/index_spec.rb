@@ -21,13 +21,34 @@ end
     it "I see a list of all flight numbers And next to each flight number I see the name of the Airline of that flight
     And under each flight number I see the names of all that flight's passengers" do
     visit "/flights"
-save_and_open_page
-
+    
     within("#flight-info-#{@flight1.id}") do
       expect(page).to have_content("Frontier")
       expect(page).to have_content(123)
       expect(page).to have_content(@todd.name)
       expect(page).to have_content(@penny.name)
+    end
+  end
+  
+  describe "US2  Remove a Passenger from a Flight" do
+    it "When I visit the flights index page Next to each passengers name I see a link or button to remove that passenger from that flight
+    When I click on that link/button I'm returned to the flights index page And I no longer see that passenger listed under that flight,
+    And I still see the passenger listed under the other flights they were assigned to." do
+    visit "/flights"
+    
+    within("#flight-info-#{@flight1.id}") do
+      # within("#passenger-#{@penny.id}") do
+      expect(page).to have_button("Delete #{@penny.name}")
+      click_button("Delete #{@penny.name}")
+      save_and_open_page
+      expect(current_path).to eq("/flights")
+      expect(page).to_not have_content(@penny.name)
+    # end
+  end
+
+    within("#flight-info-#{@flight2.id}") do
+      expect(page).to have_content(@penny.name)
+        end
       end
     end
   end
