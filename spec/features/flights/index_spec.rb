@@ -20,7 +20,7 @@ RSpec.describe 'flight index page' do
     FlightPassenger.create!(flight: flight3, passenger: passenger1)
 
     visit '/flights'
-save_and_open_page
+
     within "#flight_info-#{flight1.id}" do
       expect(page).to have_content(flight1.number)
       expect(page).to have_content(airline1.name)
@@ -43,6 +43,7 @@ save_and_open_page
     passenger3 = Passenger.create!(name: 'Fred', age: 45)
     passenger4 = Passenger.create!(name: 'Jill', age: 55)
     passenger5 = Passenger.create!(name: 'Jack', age: 65)
+    FlightPassenger.create!(flight: flight2, passenger: passenger1)
     FlightPassenger.create!(flight: flight1, passenger: passenger1)
     FlightPassenger.create!(flight: flight1, passenger: passenger2)
     FlightPassenger.create!(flight: flight1, passenger: passenger3)
@@ -65,6 +66,10 @@ save_and_open_page
       expect(page).to_not have_content(passenger1.name)
       expect(page).to have_content(passenger2.name)
       expect(page).to have_content(passenger3.name)
+    end
+
+    within "#flight_info-#{flight2.id}" do
+      expect(page).to have_content(passenger1.name)
     end
   end
 end

@@ -15,7 +15,7 @@ RSpec.describe 'airline show page' do
     FlightPassenger.create!(flight: flight1, passenger: passenger2)
     FlightPassenger.create!(flight: flight2, passenger: passenger3)
     FlightPassenger.create!(flight: flight2, passenger: passenger4)
-    FlightPassenger.create!(flight: flight3, passenger: passenger1)
+    FlightPassenger.create!(flight: flight3, passenger: passenger4)
 
     visit "/airlines/#{airline1.id}"
     
