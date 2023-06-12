@@ -22,8 +22,7 @@ RSpec.describe "flight#index", type: :feature do
   end
 
   it "should display all flights" do
-    visit "/flights"
-    # save_and_open_page
+    visit flights_path
 
     expect(page).to have_content(@flight1.number)
     expect(page).to have_content(@flight2.number)
@@ -49,8 +48,8 @@ RSpec.describe "flight#index", type: :feature do
   # And I still see the passenger listed under the other flights they were assigned to.
 
   it "can remove a passenger from the flight" do
-    visit "/flights"
-    save_and_open_page
+    visit flights_path
+
     within("#passenger-list-#{@flight1.id}") do
       expect(page).to have_content(@passenger1.name)
       expect(page).to have_content(@passenger2.name)
