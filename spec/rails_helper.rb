@@ -18,6 +18,8 @@ def test_data
   FlightPassenger.create!(flight: @flight2, passenger: @pass1)
   FlightPassenger.create!(flight: @flight2, passenger: @pass2)
 
+  FlightPassenger.create!(flight: @flight3, passenger: @pass1)
+  FlightPassenger.create!(flight: @flight3, passenger: @pass2)
   FlightPassenger.create!(flight: @flight3, passenger: @pass3)
 
   FlightPassenger.create!(flight: @flight4, passenger: @pass3)
