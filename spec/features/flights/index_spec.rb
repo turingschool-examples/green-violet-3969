@@ -34,13 +34,13 @@ RSpec.describe "/flights, flights index page", type: :feature do
       within "#flight-#{flight2.id}" do
         expect(page).to have_content("Flight Number: #{flight2.number} - #{frontier.name}")
       end
-
+      
       within "#flight-#{flight3.id}" do
         expect(page).to have_content("Flight Number: #{flight3.number} - #{southwest.name}")
       end
     end
 
-    xit "shows the names of all passengers on that flight under the flight number" do
+    it "shows the names of all passengers on that flight under the flight number" do
       visit "/flights"
 
       within "#flight-#{flight1.id}" do
