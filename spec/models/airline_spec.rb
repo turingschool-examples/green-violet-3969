@@ -40,7 +40,7 @@ RSpec.describe Airline, type: :model do
 
   describe "instance methods" do 
     describe "#list_adult_passengers" do 
-      it "returns a list of mechanics who are working on a ride at that park" do 
+      it "returns a list of adult passengers who are or over the age of 18 on at least one flight for that airline" do 
         expect(@sw.list_adult_passengers).to eq([@abe.name, @bob.name])
         expect(@sw.passengers.count).to eq(2)
         expect(@sw.list_adult_passengers.count).to eq(2)
