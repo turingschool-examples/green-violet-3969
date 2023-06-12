@@ -22,7 +22,6 @@ RSpec.describe "Flights Index Page" do
     @pf4 = PassengerFlight.create!(passenger: @passenger_4, flight: @flight_2)
     @pf5 = PassengerFlight.create!(passenger: @passenger_5, flight: @flight_3)
     @pf6 = PassengerFlight.create!(passenger: @passenger_1, flight: @flight_3)
-
   end
 
   describe "As a visitor, when I visit the flights index page" do
