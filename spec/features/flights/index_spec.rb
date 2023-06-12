@@ -16,7 +16,7 @@ RSpec.describe 'Flights Index' do
     PassengerFlight.create!(flight: @flight_3, passenger: @passenger_3)
     PassengerFlight.create!(flight: @flight_3, passenger: @passenger_4)
 
-    visit "/flights"
+    visit flights_path
   end
   describe 'flights index page' do 
     it 'displays a list of flight numbers' do 
@@ -36,13 +36,30 @@ RSpec.describe 'Flights Index' do
         expect(page).to have_content("Wesley")
       end
     end
+
+    it 'has buttons next to passengers to delete' do 
+      PassengerFlight.create!(passenger: @passenger_3, flight: @flight_2)
+
+      within("#flight-#{@flight_3.id}-#{@passenger_3.id}") do 
+        # expect(page).to have_content("Remove Passenger")
+
+        click_on 'Remove Passenger'
+      end
+      
+      within("#flight-#{@flight_3.id}-#{@passenger_4.id}") do 
+        # expect(page).to have_content("Remove Passenger")
+        
+        click_on 'Remove Passenger'
+      end
+
+      within("#flight-#{@flight_3.id}") do 
+        expect(page).to_not have_content("Wesley")
+        expect(page).to_not have_content("Jess")        
+      end
+
+      within("#flight-#{@flight_2.id}") do 
+        expect(page).to have_content("Jess")        
+      end
+    end
   end
 end
-
-# User Story 1, Flights Index Page
-
-# As a visitor
-# When I visit the flights index page
-# I see a list of all flight numbers
-# And next to each flight number I see the name of the Airline of that flight
-# And under each flight number I see the names of all that flight's passengers
