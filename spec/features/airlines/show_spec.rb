@@ -9,7 +9,7 @@ RSpec.describe 'Airline Show', type: :feature do
     @flight3 = @frontier.flights.create!(number: 222, date: "08/05/20", departure_city: "Indy", arrival_city: "San Fran")
 
     @todd = Passenger.create!(name: "Todd", age: 40 )
-    @amy = Passenger.create!(name: "Todd", age: 21 )
+    @amy = Passenger.create!(name: "Amy", age: 21 )
 
     @penny = Passenger.create!(name: "Penny", age: 8 )
     @vivian = Passenger.create!(name: "Vivian", age: 5 )
@@ -24,8 +24,16 @@ describe "US3 Airline's Passengers" do
   And I see that this list only includes adult passengers." do
   visit "/airlines/#{@frontier.id}"
 save_and_open_page
-    expect(page).to have_content(@todd.name)
-    expect(page).to have_content(@amy.name)
+    within("h1") do
+      expect(page).to have_content("Airline Show Page")
+    end
+
+    within("h4") do
+      expect(page).to have_content("Passenger List")
+    end
+
+    expect(page).to have_content(@todd.name).once
+    expect(page).to have_content(@amy.name).once
     expect(page).to_not have_content(@penny.name)
     expect(page).to_not have_content(@vivian.name)
     end

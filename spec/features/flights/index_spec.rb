@@ -23,10 +23,10 @@ end
     visit "/flights"
     
     within("#flight-info-#{@flight1.id}") do
-      expect(page).to have_content("Frontier")
-      expect(page).to have_content(123)
-      expect(page).to have_content(@todd.name)
-      expect(page).to have_content(@penny.name)
+      expect(page).to have_content("Airline: #{@frontier.name}")
+      expect(page).to have_content("Flight Number: #{@flight1.number}")
+      expect(page).to have_content("Passenger Name: #{@todd.name}")
+      expect(page).to have_content("Passenger Name: #{@penny.name}")
     end
   end
   
@@ -43,11 +43,15 @@ end
       save_and_open_page
       expect(current_path).to eq("/flights")
       expect(page).to_not have_content(@penny.name)
+      expect(page).to have_content(@todd.name)
+
     # end
   end
 
-    within("#flight-info-#{@flight2.id}") do
-      expect(page).to have_content(@penny.name)
+      within("#flight-info-#{@flight2.id}") do
+        expect(page).to have_content(@penny.name)
+        expect(page).to have_content(@todd.name)
+        expect(page).to have_content(@vivian.name)
         end
       end
     end
