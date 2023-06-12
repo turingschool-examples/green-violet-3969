@@ -23,8 +23,14 @@ RSpec.describe Airline, type: :model do
     @pass_flight6 = PassengerFlight.create!(passenger_id: @passenger2.id, flight_id: @flight2.id)
     @pass_flight6 = PassengerFlight.create!(passenger_id: @passenger4.id, flight_id: @flight2.id)
     @pass_flight6 = PassengerFlight.create!(passenger_id: @passenger4.id, flight_id: @flight1.id)
+    @pass_flight6 = PassengerFlight.create!(passenger_id: @passenger4.id, flight_id: @flight3.id)
+    @pass_flight6 = PassengerFlight.create!(passenger_id: @passenger4.id, flight_id: @flight4.id)
     @pass_flight6 = PassengerFlight.create!(passenger_id: @passenger5.id, flight_id: @flight1.id)
     @pass_flight6 = PassengerFlight.create!(passenger_id: @passenger5.id, flight_id: @flight2.id)
+    @pass_flight6 = PassengerFlight.create!(passenger_id: @passenger5.id, flight_id: @flight3.id)
+    @pass_flight6 = PassengerFlight.create!(passenger_id: @passenger6.id, flight_id: @flight3.id)
+    @pass_flight6 = PassengerFlight.create!(passenger_id: @passenger7.id, flight_id: @flight3.id)
+    @pass_flight6 = PassengerFlight.create!(passenger_id: @passenger7.id, flight_id: @flight2.id)
   end
   describe "relationships" do
     it {should have_many :flights}
@@ -33,8 +39,8 @@ RSpec.describe Airline, type: :model do
   end
 
   describe "instance methods" do 
-    it "passenger_names" do 
-      expect(@airline1.passenger_names).to match_array(["Bob", "K.D."])
+    it "frequent_flyer_names" do 
+      expect(@airline1.frequent_flyer_names).to eq(["K.D.", "Bob", "Brianna", "Ryan"])
     end
   end
 end

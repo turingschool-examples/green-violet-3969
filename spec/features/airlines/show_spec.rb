@@ -23,8 +23,14 @@ RSpec.describe "Airlines Show Page", type: :feature do
     @pass_flight6 = PassengerFlight.create!(passenger_id: @passenger2.id, flight_id: @flight2.id)
     @pass_flight6 = PassengerFlight.create!(passenger_id: @passenger4.id, flight_id: @flight2.id)
     @pass_flight6 = PassengerFlight.create!(passenger_id: @passenger4.id, flight_id: @flight1.id)
+    @pass_flight6 = PassengerFlight.create!(passenger_id: @passenger4.id, flight_id: @flight3.id)
+    @pass_flight6 = PassengerFlight.create!(passenger_id: @passenger4.id, flight_id: @flight4.id)
     @pass_flight6 = PassengerFlight.create!(passenger_id: @passenger5.id, flight_id: @flight1.id)
     @pass_flight6 = PassengerFlight.create!(passenger_id: @passenger5.id, flight_id: @flight2.id)
+    @pass_flight6 = PassengerFlight.create!(passenger_id: @passenger5.id, flight_id: @flight3.id)
+    @pass_flight6 = PassengerFlight.create!(passenger_id: @passenger6.id, flight_id: @flight3.id)
+    @pass_flight6 = PassengerFlight.create!(passenger_id: @passenger7.id, flight_id: @flight3.id)
+    @pass_flight6 = PassengerFlight.create!(passenger_id: @passenger7.id, flight_id: @flight2.id)
 
     visit airline_path(@airline1)
   end
