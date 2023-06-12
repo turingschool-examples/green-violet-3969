@@ -43,6 +43,7 @@ RSpec.describe "Flights Index Page" do
   end
 
   it "has names of all flights passengers under each flight number" do 
+    pass_flight_5 = PassengerFlight.create!(flight_id: @flight_2.id, passenger_id: @pass_1.id)
     visit flights_path 
 
     within("#flight-#{@flight_1.id}") do
@@ -51,6 +52,7 @@ RSpec.describe "Flights Index Page" do
     end
 
     within("#flight-#{@flight_2.id}") do
+      expect(page).to have_content(@pass_1.name)
       expect(page).to have_content(@pass_3.name)
       expect(page).to have_content(@pass_4.name)
     end
