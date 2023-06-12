@@ -9,5 +9,9 @@ Rails.application.routes.draw do
 
   get '/airlines/:id', to: 'airlines#show', as: 'airline'
 
+  resources :flights do
+    resources :passengers
+  end
+
 
 end

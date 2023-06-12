@@ -26,7 +26,6 @@ RSpec.describe 'Airline Show Page' do
     end
 
     it 'displays a list of passengers that have flights on that airline' do
-      save_and_open_page
       expect(page).to have_content("#{@passenger2.name}")
       expect(page).to have_content("#{@passenger3.name}")
 
@@ -36,13 +35,3 @@ RSpec.describe 'Airline Show Page' do
   
   end
 end
-
-# User Story 3, Airline's Passengers
-
-# As a visitor
-# When I visit an airline's show page
-# Then I see a list of passengers that have flights on that airline
-# And I see that this list is unique (no duplicate passengers)
-# And I see that this list only includes adult passengers.
-
-# (Note: an adult is anyone with age greater than or equal to 18)
