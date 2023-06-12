@@ -4,11 +4,14 @@
   <% @flights.each do |flight| %>
     <li>
       <p>Flight Number: <%= flight.number %></p>
-      <p>Airline: <%= flight.airline.name %></p>
       <p>Passengers:</p>
       <ul id="passenger-list-<%= flight.id %>">
         <% flight.passengers.each do |passenger| %>
-          <li><%= passenger.name %></li>
+          <% passenger_flight = PassengerFlight.find_by(flight: flight, passenger: passenger) %>
+          <li>
+            <%= passenger.name %>
+            <%= link_to "Remove #{passenger.name}", passenger_flight_path(passenger_flight), method: :delete %>
+          </li>
         <% end %>
       </ul>
     </li>
