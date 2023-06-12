@@ -10,8 +10,8 @@
     <% flight.passengers.each do |passenger| %>
       <li><%= passenger.name %></li>
       <%= form_with url: "/passenger_flights", method: :delete, local: true do |f| %>
-        <% hidden_field_tag :passenger_id, passenger.id %>
-        <% hidden_field_tag :flight_id, flight.id %>
+        <%= hidden_field_tag :passenger_id, passenger.id %>
+        <%= hidden_field_tag :flight_id, flight.id %>
         <%= f.submit "Remove #{passenger.name} from #{flight.number}"%>
       <% end %>
     <% end %>

@@ -6,6 +6,6 @@ Rails.application.routes.draw do
 
   resources :flights, only: [:index]
 
-  resources :passenger_flights, only: [:delete, :destroy]
+  delete "passenger_flights", to: "passenger_flights#destroy"
 
 end
