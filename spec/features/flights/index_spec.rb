@@ -37,10 +37,13 @@ RSpec.describe 'Flights Index Page' do
     @booking10 = Booking.create!(passenger_id: @passenger10.id, flight_id: @flight5.id)
     @booking11 = Booking.create!(passenger_id: @passenger11.id, flight_id: @flight6.id)
     @booking12 = Booking.create!(passenger_id: @passenger12.id, flight_id: @flight6.id)
+
+    @booking13 = Booking.create!(passenger_id: @passenger4.id, flight_id: @flight1.id)
   end
 
   describe "flights index" do
     it "shows all flight numbers assciated with airline and passengers" do
+      # User Story 1, Flights Index Page
       visit "/flights"
 
       within "#flights" do
@@ -72,6 +75,25 @@ RSpec.describe 'Flights Index Page' do
         expect(page).to have_content("Flight: ##{@flight6.number} - Airline: #{@airline2.name}")
         expect(page).to have_content("Passenger: #{@passenger11.name}")
         expect(page).to have_content("Passenger: #{@passenger12.name}")
+      end
+    end
+
+    it "removes passenger from flight" do
+      # User Story 2, Remove a Passenger from a Flight
+      visit "/flights"
+
+      within "#flights" do
+        expect(@flight1.passengers).to eq([@passenger1, @passenger2, @passenger4])
+        expect(@flight2.passengers).to eq([@passenger3, @passenger4])
+        expect(page).to have_button "Remove Passenger #{@passenger4.name} From Flight ##{@flight2.number}"
+        click_button "Remove Passenger #{@passenger4.name} From Flight ##{@flight2.number}"
+        expect(current_path).to eq("/flights")
+        @flight2.reload
+      end
+
+      within "#flights" do
+        expect(@flight2.passengers).to eq([@passenger3])
+        expect(@flight1.passengers).to eq([@passenger1, @passenger2, @passenger4])
       end
     end
   end
