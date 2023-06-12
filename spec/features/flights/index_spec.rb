@@ -46,6 +46,7 @@ RSpec.describe "/flights" do
       expect(page).to have_content("Passengers:")
       expect(page).to have_content("#{passenger_2.name}")
       expect(page).to have_content("#{passenger_3.name}")
+      save_and_open_page
     end
   end
 end
