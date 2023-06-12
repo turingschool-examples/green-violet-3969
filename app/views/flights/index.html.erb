@@ -9,7 +9,11 @@
   <ul>
     <% flight.passengers.each do |passenger| %>
       <li><%= passenger.name %></li>
-      <%= button_to "Remove #{passenger.name} from #{flight.number}", passenger_flight_path(passenger: passenger.id, flight: flight.id), method: :delete %>
+      <%= form_with url: "/passenger_flights", method: :delete, local: true do |f| %>
+        <% hidden_field_tag :passenger_id, passenger.id %>
+        <% hidden_field_tag :flight_id, flight.id %>
+        <%= f.submit "Remove #{passenger.name} from #{flight.number}"%>
+      <% end %>
     <% end %>
   </ul>
   <% end %>
