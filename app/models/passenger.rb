@@ -4,7 +4,8 @@ class Passenger < ApplicationRecord
 
 
   def self.unique_adults(airline)
-    joins(:flights).where(flights: { airline: airline }, age: 18..1000).distinct
+    joins(flights: :airline)
+      .where('age >= 18 and airlines.id = ?', airline.id)
+      .distinct.to_a.uniq { |passenger| passenger.name }
   end
-
 end

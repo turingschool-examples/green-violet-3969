@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "airline#show" type: :feature do
+RSpec.describe "airline#show", type: :feature do
   before(:each) do
     @airline1 = Airline.create!(name: "Superjet")
 
@@ -18,14 +18,6 @@ RSpec.describe "airline#show" type: :feature do
     PassengerFlight.create!(flight: @flight2, passenger: @passenger4)
   end
 
-  # User Story 3, Airline's Passengers
-
-  # As a visitor
-  # When I visit an airline's show page
-  # Then I see a list of passengers that have flights on that airline
-  # And I see that this list is unique (no duplicate passengers)
-  # And I see that this list only includes adult passengers.
-
   it "shows a list of unique adult passengers for that airline" do
     visit airline_path(@airline1)
 
@@ -35,4 +27,4 @@ RSpec.describe "airline#show" type: :feature do
       expect(page).not_to have_content(@passenger3.name)
     end
   end
-  end
+end
