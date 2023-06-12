@@ -46,7 +46,34 @@ RSpec.describe "/flights" do
       expect(page).to have_content("Passengers:")
       expect(page).to have_content("#{passenger_2.name}")
       expect(page).to have_content("#{passenger_3.name}")
-      save_and_open_page
+    end
+  end
+
+  it "displays a button to remove a passenger from a flight" do
+    visit "/flights"
+
+    within ".flight_#{flight_2.id}" do
+      expect(page).to have_content("Flight #: #{flight_2.number}, Airline: #{airline.name}")
+      expect(page).to have_content("Passengers:")
+      expect(page).to have_content("#{passenger_2.name}")
+      expect(page).to have_button("Remove Passenger #{passenger_2.id}")
+      expect(page).to have_content("#{passenger_3.name}")
+      expect(page).to have_button("Remove Passenger #{passenger_3.id}")
+
+      click_button("Remove Passenger #{passenger_2.id}")
+    end
+
+    expect(current_path).to eq("/flights")
+
+    within ".flight_#{flight_2.id}" do
+      expect(page).to have_content("Flight #: #{flight_2.number}, Airline: #{airline.name}")
+      expect(page).to have_content("Passengers:")
+
+      expect(page).to_not have_content("#{passenger_2.name}")
+      expect(page).to_not have_button("Remove Passenger #{passenger_2.id}")
+      
+      expect(page).to have_content("#{passenger_3.name}")
+      expect(page).to have_button("Remove Passenger #{passenger_3.id}")
     end
   end
 end
