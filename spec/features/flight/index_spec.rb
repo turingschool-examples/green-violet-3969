@@ -59,15 +59,15 @@ RSpec.describe "the flights index page" do
     end
   end
 # User Story 2, Remove a Passenger from a Flight
-  xit "can remove a passenger from a flight" do 
+  it "can remove a passenger from a flight" do 
     within "##{@flight1.number}" do
       expect(page).to have_content("#{@passenger10.name}")
     end
 
     within "##{@flight5.number}" do
       expect(page).to have_content("#{@passenger10.name} Remove Passenger")
-      expect(page).to have_link("Remove Passenger")
-      click_link("Remove Passenger")
+      expect(page).to have_button("Remove Passenger")
+      click_button("Remove Passenger")
 # save_and_open_page
       expect(current_path).to eq("/flights")
       expect(page).to_not have_content("#{@passenger10.name}")
