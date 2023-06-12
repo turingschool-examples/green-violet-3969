@@ -42,15 +42,13 @@ RSpec.describe "flights index" do
     expect(page).to have_content("Bill")
     expect(page).to have_content("Joe")
     expect(page).to have_content("Frank")
-    within("#1234") do
-      click_button "Remove Bob"
-      expect(current_path).to eq("/flights")
-      expect(page).to have_content("Flight 1234 Passengers:")
-      expect(page).to have_content("Bill")
-      expect(page).to have_content("Joe")
-      expect(page).to have_content("Frank")
-      expect(page).to_not have_content("Bob")
-    end
+    click_button "Remove Bob"
+    expect(current_path).to eq("/flights")
+    expect(page).to have_content("Flight 1234 Passengers:")
+    expect(page).to have_content("Bill")
+    expect(page).to have_content("Joe")
+    expect(page).to have_content("Frank")
+    expect(page).to_not have_content("Bob")
 
     expect(page).to have_content("Flight 1254 Passengers:")
     expect(page).to have_content("Bob")

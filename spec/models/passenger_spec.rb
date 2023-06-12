@@ -1,6 +1,9 @@
 require "rails_helper"
 
 RSpec.describe Passenger, type: :model do
+  describe "relationships" do
+    it {should have_many :flights}
+  end
   before(:each) do
     @airline_1 = Airline.create!(name: "BlueJet")
     @airline_2 = Airline.create!(name: "Atled")
