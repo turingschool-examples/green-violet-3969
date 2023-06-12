@@ -4,7 +4,8 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
 
-  resources :flights, only: [:index]
+  get '/flights', to: 'flights#index', as: 'flights'
+  delete 'flights/:id/passengers/:passenger_id', to: 'flights#destroy', as: 'remove_passenger'
 
 
 end

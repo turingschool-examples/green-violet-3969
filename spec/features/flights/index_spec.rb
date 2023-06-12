@@ -61,5 +61,31 @@ RSpec.describe 'Flights Index Page' do
         expect(page).to have_content(@passenger8.name)
       end
     end
+
+    it 'has a link to remove a passenger from a flight' do
+    
+      within(".flight-#{@flight1.number}") do
+        expect(page).to have_link('Remove Passenger', href: remove_passenger_path(@flight1, @passenger1))
+        expect(page).to have_link('Remove Passenger', href: remove_passenger_path(@flight1, @passenger2))
+    
+        click_link 'Remove Passenger', href: remove_passenger_path(@flight1, @passenger1)
+
+      end
+    
+      expect(current_path).to eq(flights_path)
+      expect(page).not_to have_content(@passenger1.name)
+      expect(page).to have_content(@passenger2.name)
+    end
   end
 end
+
+# User Story 2, Remove a Passenger from a Flight
+
+# As a visitor
+# When I visit the flights index page
+# Next to each passengers name
+# I see a link or button to remove that passenger from that flight
+# When I click on that link/button
+# I'm returned to the flights index page
+# And I no longer see that passenger listed under that flight,
+# And I still see the passenger listed under the other flights they were assigned to.
