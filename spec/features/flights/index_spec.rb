@@ -1,7 +1,3 @@
-
-# And next to each flight number I see the name of the Airline of that flight
-# And under each flight number I see the names of all that flight's passengers
-
 require "rails_helper"
 
 RSpec.describe 'Flight Index Page', type: :feature do
@@ -21,6 +17,7 @@ RSpec.describe 'Flight Index Page', type: :feature do
   let!(:pass_flight_1) { PassengerFlight.create!(flight_id: flight721.id, passenger_id: pass_1.id) }
   let!(:pass_flight_2) { PassengerFlight.create!(flight_id: flight721.id, passenger_id: pass_2.id) }
   let!(:pass_flight_3) { PassengerFlight.create!(flight_id: flight721.id, passenger_id: pass_3.id) }
+  # let!(:pass_flight_5) { PassengerFlight.create!(flight_id: flight510.id, passenger_id: pass_1.id) }
   # let!(:pass_flight_4) { PassengerFlight.create!(flight_id: flight510.id, passenger_id: pass_4.id) }
 
   describe 'Display a list of flights with attributes and associations' do
@@ -47,6 +44,22 @@ RSpec.describe 'Flight Index Page', type: :feature do
       expect(page).to have_content(pass_2.name)
       expect(page).to have_content(pass_3.name)
       expect(page).to_not have_content(pass_4.name)
+    end
+  end
+
+  describe 'displays a button to remove a passenger' do
+    it 'should display a button to remove a passanger from a flight' do
+      visit flights_path
+      save_and_open_page
+      # within("#remove-#{delta.name}") do
+        expect(page).to have_button("Remove #{pass_1.name} on #{flight721.number}")
+        expect(page).to have_button("Remove #{pass_2.name} on #{flight721.number}")
+
+        click_button("Remove #{pass_1.name} on #{flight721.number}")
+        save_and_open_page
+        expect(current_path).to eq(flights_path)
+        expect(page).to_not have_button("Remove #{pass_1.name} on #{flight721.number}")
+      # end
     end
   end
 end

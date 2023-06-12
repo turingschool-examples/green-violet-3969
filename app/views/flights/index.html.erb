@@ -1,9 +1,10 @@
 <h1 style="background-color:grey; border-top: solid black 2px;"><center>All Flights</h1>
-
 <% @flights.each do |flight| %>
-  <ul><b>Flight Number and Airline:</b> <%= flight.number %> <%= flight.airline.name %></ul>
-    <ul><b>Passengers:</b> <% flight.passengers.each do |passenger| %></ul>
-      <ol><%= passenger.name %></ol>
+    <ul><b>Flight Number and Airline:</b> <%= flight.number %> <%= flight.airline.name %></ul>
+      <ul><b>Passengers:</b> <% flight.passengers.each do |passenger| %></ul>
+        <% passenger.passenger_flights.each do |passenger_flight| %>
+        <ol><%= passenger.name %> <%= button_to "Remove #{passenger.name} on #{flight.number}", passenger_flight_path(passenger_flight), method: :delete %></ol>
+        <% end %>
+      <br/>
     <% end %>
-    <br/>
 <% end %>
