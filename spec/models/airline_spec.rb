@@ -14,6 +14,8 @@ RSpec.describe Airline, type: :model do
     @passenger3 = Passenger.create!(name: "Circe", age: 3)
     @passenger4 = Passenger.create!(name: "K.D.", age: 37)
     @passenger5 = Passenger.create!(name: "Bob", age: 38)
+    @passenger6 = Passenger.create!(name: "Ryan", age: 35)
+    @passenger7 = Passenger.create!(name: "Brianna", age: 36)
 
     @pass_flight1 = PassengerFlight.create!(passenger_id: @passenger1.id, flight_id: @flight1.id)
     @pass_flight2 = PassengerFlight.create!(passenger_id: @passenger2.id, flight_id: @flight1.id)
@@ -39,8 +41,8 @@ RSpec.describe Airline, type: :model do
   end
 
   describe "instance methods" do 
-    it "frequent_flyer_names" do 
-      expect(@airline1.frequent_flyer_names).to eq(["K.D.", "Bob", "Brianna", "Ryan"])
+    it "frequent_flyers" do 
+      expect(@airline1.frequent_flyers).to eq([@passenger4, @passenger5, @passenger7, @passenger6])
     end
   end
 end
