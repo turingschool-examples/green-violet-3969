@@ -1,0 +1,17 @@
+<h1>All The Flights</h1> 
+
+<% @flights.each do |flight| %>
+  <div id="flight-<%= flight.id %>">
+  <p>Flight Number: <%= flight.number %></p>
+  <p>Airline: <%= flight.airline.name %></p>
+  <p>Passengers:</p>
+  <% if flight.passengers != nil %>
+  <ul>
+    <% flight.passengers.each do |passenger| %>
+      <li><%= passenger.name %></li>
+    <% end %>
+  </ul>
+  <% end %>
+  <p>...........................</p>
+  </div>
+<% end %>

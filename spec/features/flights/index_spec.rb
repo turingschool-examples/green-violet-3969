@@ -24,9 +24,11 @@ RSpec.describe "Flights Index Page", type: :feature do
   it "displays a list of all flight numbers with airline and passenger information" do 
     visit flights_path
 
+    expect(page).to have_content("All The Flights")
+    save_and_open_page
     within("#flight-#{@flight1.id}") do 
       expect(page).to have_content("Flight Number: #{@flight1.number}")
-      expect(page).to have_content("Airline: #{@flight1.airline}")
+      expect(page).to have_content("Airline: #{@flight1.airline.name}")
       expect(page).to have_content("Passengers:")
       expect(page).to have_content("Wolfie")
       expect(page).to have_content("Maggie")
@@ -35,7 +37,7 @@ RSpec.describe "Flights Index Page", type: :feature do
 
     within("#flight-#{@flight2.id}") do 
       expect(page).to have_content("Flight Number: #{@flight2.number}")
-      expect(page).to have_content("Airline: #{@flight2.airline}")
+      expect(page).to have_content("Airline: #{@flight2.airline.name}")
       expect(page).to have_content("Passengers:")
       expect(page).to have_content("Wolfie")
       expect(page).to have_content("Maggie")
@@ -43,7 +45,7 @@ RSpec.describe "Flights Index Page", type: :feature do
 
     within("#flight-#{@flight3.id}") do 
       expect(page).to have_content("Flight Number: #{@flight3.number}")
-      expect(page).to have_content("Airline: #{@flight3.airline}")
+      expect(page).to have_content("Airline: #{@flight3.airline.name}")
       expect(page).to have_content("Passengers:")
       expect(page).to have_content("Wolfie")
     end
