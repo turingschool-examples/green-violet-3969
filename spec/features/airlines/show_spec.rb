@@ -1,10 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Airline, type: :model do
-  describe "relationships" do
-    it {should have_many :flights}
-  end
-
+RSpec.describe "Airline Show Page" do
   before :each do
     @airline_1 = Airline.create!(name: "Delta")
     @airline_2 = Airline.create!(name: "United")
@@ -29,13 +25,25 @@ RSpec.describe Airline, type: :model do
     @passenger_flight_6 = PassengerFlight.create!(flight_id: @flight_3.id, passenger_id: @passenger_6.id)
     @passenger_flight_7 = PassengerFlight.create!(flight_id: @flight_3.id, passenger_id: @passenger_7.id)
     @passenger_flight_8 = PassengerFlight.create!(flight_id: @flight_1.id, passenger_id: @passenger_3.id)
-    @passenger_flight_9 = PassengerFlight.create!(flight_id: @flight_1.id, passenger_id: @passenger_4.id)
+    @passenger_flight_8 = PassengerFlight.create!(flight_id: @flight_1.id, passenger_id: @passenger_4.id)
   end
+  describe "As a visitor" do
+    describe "When I visit an airline's show page" do
+      it "shows a unique list of adult passengers that have flights on that airline" do
+        visit airline_path(@airline_1)
 
-  describe "instance methods" do
-    describe "#adult_passengers" do
-      it "returns a unique list of adult passengers that have flights on that airline" do
-        expect(@airline_1.adult_passengers.sort).to eq([@passenger_2, @passenger_3, @passenger_5])
+        expect(page).to have_content("#{@airline_1.name} Airlines")
+
+        within("#adult-passengers") do
+          expect(page).to have_content("Adult Passengers:")
+          expect(page).to have_content("Name: #{@passenger_5.name}")
+          expect(page).to have_content("Name: #{@passenger_2.name}")
+          expect(page).to have_content("Name: #{@passenger_3.name}")
+          expect(page).to_not have_content("Name: #{@passenger_4.name}")
+          expect(page).to_not have_content("Name: #{@passenger_1.name}")
+          expect(page).to_not have_content("Name: #{@passenger_6.name}")
+          expect(page).to_not have_content("Name: #{@passenger_7.name}")
+        end
       end
     end
   end
