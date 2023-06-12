@@ -59,13 +59,12 @@ end
     
     within("#flight-info-#{@flight1.id}") do
       # within("#passenger-#{@penny.id}") do
-      expect(page).to have_button("Delete #{@penny.name}")
-      click_button("Delete #{@penny.name}")
-      save_and_open_page
-      expect(current_path).to eq("/flights")
-      expect(page).to_not have_content(@penny.name)
-      expect(page).to have_content(@todd.name)
-
+        expect(page).to have_content(@penny.name)
+        expect(page).to have_button("Delete #{@penny.name}")
+        click_button("Delete #{@penny.name}")
+        expect(current_path).to eq("/flights")
+        expect(page).to_not have_content(@penny.name)
+        expect(page).to have_content(@todd.name)
     # end
   end
 

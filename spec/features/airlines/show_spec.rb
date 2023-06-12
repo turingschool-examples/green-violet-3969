@@ -28,6 +28,10 @@ save_and_open_page
       expect(page).to have_content("Airline Show Page")
     end
 
+    within("h3") do
+      expect(page).to have_content(@frontier.name)
+    end
+
     within("h4") do
       expect(page).to have_content("Passenger List")
     end
