@@ -7,7 +7,7 @@ RSpec.describe "flights show" do
     @flight_1 = @airline_1.flights.create!(number: 1234, date: "07/03/23", departure_city: "LA", arrival_city: "Reno")
     @flight_2 = @airline_2.flights.create!(number: 1254, date: "07/03/23", departure_city: "SF", arrival_city: "Seatle")
     @passenger_1 = @flight_1.passengers.create!(name: "Bob", age: 12)
-    @passenger_2 = @flight_1.passengers.create!(name: "Bill", age: 30)
+    @passenger_2 = @flight_1.passengers.create!(name: "Bill", age: 18)
     @passenger_3 = @flight_1.passengers.create!(name: "Joe", age: 40)
     @passenger_4 = @flight_1.passengers.create!(name: "Frank", age: 60)
     @passenger_5 = @flight_2.passengers.create!(name: "George", age: 23)
@@ -21,7 +21,7 @@ RSpec.describe "flights show" do
     visit "/flights/#{@flight_1.id}"
     expect(page).to have_content("Passengers:")
     expect(page).to_not have_content("Passenger: Bob, age: 12")
-    expect(page).to have_content("Passenger: Bill, age: 30")
+    expect(page).to have_content("Passenger: Bill, age: 18")
     expect(page).to have_content("Passenger: Joe, age: 40")
     expect(page).to have_content("Passenger: Frank, age: 60")
   end
