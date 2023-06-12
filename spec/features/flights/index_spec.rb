@@ -60,7 +60,6 @@ describe "Flights Index page" do
     it "no longer displays the passenger listed under that flight" do
       visit flights_path
       click_link("Remove #{@passenger3.name}")
-      save_and_open_page
       expect(page).to_not have_content(@passenger3.name)
       expect(page).to have_content(@passenger1.name)
       expect(page).to have_content(@passenger4.name)
@@ -68,7 +67,8 @@ describe "Flights Index page" do
     
     it "no longer displays the passenger listed under the flight remove link was clicks, but still displays the passenger if they are passengers on another flight" do
       visit flights_path
-      click_link("Remove")
+      click_link("Remove #{@passenger1.name}", class: 'remove-link')
+      save_and_open_page
       expect(page).to have_content(@passenger1.name)
       expect(page).to have_content(@passenger3.name)
       expect(page).to have_content(@passenger4.name)
