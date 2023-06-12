@@ -26,9 +26,10 @@ RSpec.describe "Flights Index Page" do
     @fp_8 = FlightPassenger.create!(flight: @flight_3, passenger: @passenger_4)
   end
 
+  # User Story 1
   it "displays a list of all flight numbers and the name of the airline next to it" do
     visit flights_path
-    
+
     expect(page).to have_content("#{@flight_1.number} - #{@flight_1.airline.name}")
     expect(page).to have_content("#{@flight_2.number} - #{@flight_2.airline.name}")
     expect(page).to have_content("#{@flight_3.number} - #{@flight_3.airline.name}")
@@ -55,6 +56,27 @@ RSpec.describe "Flights Index Page" do
       expect(page).to have_content(@passenger_6.name)
       expect(page).to have_content(@passenger_4.name)
       expect(page).to_not have_content(@passenger_1.name)
+    end
+  end
+
+  # User Story 2
+  it "displays a button next to each passengers name to remove them from that flight" do
+    visit flights_path
+
+    within("#flight-#{@flight_1.id}") do
+      expect(page).to have_content(@passenger_1.name)
+      expect(page).to have_content(@passenger_2.name)
+      expect(page).to have_content(@passenger_3.name)
+
+      expect(page).to have_button("Remove Passenger")
+      click_button("Remove Passenger", match: :first)
+
+      expect(page).to have_current_path(flights_path)
+      expect(page).to_not have_content(@passenger_1.name)
+    end
+
+    within("#flight-#{@flight_2.id}") do
+      expect(page).to have_content(@passenger_1.name) # Passenger_1 on flight_2 is unaffected by removing him from flight_1
     end
   end
 end

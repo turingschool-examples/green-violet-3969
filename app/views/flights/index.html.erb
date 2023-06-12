@@ -5,7 +5,7 @@
     <li><%= flight.number %> - <%= flight.airline.name %></li>
       <section id ="flight-<%= flight.id %>">
         <% flight.passengers.each do |passenger| %>
-          <p><%= passenger.name %></p>
+          <p><%= passenger.name %> <%= button_to "Remove Passenger", flight_passenger_path(flight, passenger), method: :delete %></p>
         <% end %>
       </section>
   <% end %>
