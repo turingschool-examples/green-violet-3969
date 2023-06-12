@@ -8,4 +8,8 @@ Rails.application.routes.draw do
     resources :flights, only: [:index]
     resources :passengers, only: [:destroy], controller: 'flight_passengers'
   end
+
+  resources :airlines do 
+    resources :airlines, only: [:show]
+  end
 end
