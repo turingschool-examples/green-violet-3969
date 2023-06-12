@@ -1,10 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Airline, type: :model do
-  describe "relationships" do
-    it {should have_many :flights}
-  end
-
+RSpec.describe "/airlines/:id" do
   let!(:airline) { Airline.create!(name: "Buzz Buzz Air") }
 
   let!(:flight_1) { airline.flights.create!(number: "123", date:"06/01/2023", departure_city:"DEN", arrival_city: "LGA") }
@@ -24,18 +20,14 @@ RSpec.describe Airline, type: :model do
   let!(:passenger_4) { Passenger.create!(name: "Cant Fly", age: 40) }
   let!(:flight_pass_5) { FlightPassenger.create!(flight: flight_3, passenger: passenger_4) }
 
-  describe "#instance methods" do
-    describe "#unique_adult_passengers" do
-      it "can return a list of passengers unique to this airline that are adults" do
-        expected = [passenger_1, passenger_2]
-        returned_passengers = airline.unique_adult_passengers
+  it "displays a list of passengers that is unique / only adults with a flight on this airline" do
+    visit "/airlines/#{airline.id}"
 
-        expect(returned_passengers[0].name).to eq(expected[0].name)
-        expect(returned_passengers[0].age).to eq(expected[0].age)
-
-        expect(returned_passengers[1].name).to eq(expected[1].name)
-        expect(returned_passengers[1].age).to eq(expected[1].age)
-      end
+    within ".airline_passengers" do
+      expect(page).to have_content("#{passenger_1.name}, #{passenger_1.age}")
+      expect(page).to have_content("#{passenger_2.name}, #{passenger_2.age}")
+      expect(page).to_not have_content("#{passenger_3.name}, #{passenger_3.age}")
+      expect(page).to_not have_content("#{passenger_4.name}, #{passenger_4.age}")
     end
   end
 end
