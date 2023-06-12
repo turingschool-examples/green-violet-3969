@@ -22,7 +22,6 @@ describe "Flights Index page" do
 
     it "displays a list of all flight numbers" do
       visit flights_path
-      save_and_open_page
       expect(page).to have_content("Flights Index")
       expect(page).to have_content(@flight1.number)
       expect(page).to have_content(@flight2.number)
@@ -35,13 +34,44 @@ describe "Flights Index page" do
       expect(page).to have_content("Southwest")
       expect(page).to_not have_content("Southeast")
     end
-
+    
     it "displays under each flight number the names of all the flight's passengers" do
       visit flights_path
       expect(page).to have_content(@passenger1.name)
       expect(page).to have_content(@passenger4.name)
       expect(page).to_not have_content(@passenger2.name)
       expect(page).to have_content(@passenger3.name)
+    end
+    
+    it "display next to each passengers name a link to remove the passenger from that flight" do
+      visit flights_path
+      expect(page).to have_link("Remove #{@passenger1.name}")
+      expect(page).to have_link("Remove #{@passenger4.name}")
+      expect(page).to have_link("Remove #{@passenger3.name}")
+      expect(page).to_not have_link("Remove #{@passenger2.name}")
+    end
+    
+    it "returns to flight index page when user clicks on link" do
+      visit flights_path
+      click_link("Remove #{@passenger4.name}")
+      expect(current_path).to eq(flights_path)
+    end
+    
+    it "no longer displays the passenger listed under that flight" do
+      visit flights_path
+      click_link("Remove #{@passenger3.name}")
+      save_and_open_page
+      expect(page).to_not have_content(@passenger3.name)
+      expect(page).to have_content(@passenger1.name)
+      expect(page).to have_content(@passenger4.name)
+    end
+    
+    it "no longer displays the passenger listed under the flight remove link was clicks, but still displays the passenger if they are passengers on another flight" do
+      visit flights_path
+      click_link("Remove")
+      expect(page).to have_content(@passenger1.name)
+      expect(page).to have_content(@passenger3.name)
+      expect(page).to have_content(@passenger4.name)
     end
   end
 end
