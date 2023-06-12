@@ -27,16 +27,16 @@ RSpec.describe "Flights Index Page" do
   end
 
   it "displays a list of all flight numbers and the name of the airline next to it" do
-    visit "/flights"
-    #visit flights_path
+    visit flights_path
+    
     expect(page).to have_content("#{@flight_1.number} - #{@flight_1.airline.name}")
     expect(page).to have_content("#{@flight_2.number} - #{@flight_2.airline.name}")
     expect(page).to have_content("#{@flight_3.number} - #{@flight_3.airline.name}")
   end
 
   it "displays the names of all passengers on each flight" do
-    visit "/flights"
-    #visit flights_path
+    visit flights_path
+
     within("#flight-#{@flight_1.id}") do
       expect(page).to have_content(@passenger_1.name)
       expect(page).to have_content(@passenger_2.name)
