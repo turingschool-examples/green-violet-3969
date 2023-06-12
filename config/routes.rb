@@ -5,4 +5,7 @@ Rails.application.routes.draw do
   # root "articles#index"
 
   resources :flights, only: [:index]
+
+  resources :passenger_flights, only: [:delete, :destroy]
+
 end

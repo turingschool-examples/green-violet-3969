@@ -25,7 +25,7 @@ RSpec.describe "Flights Index Page", type: :feature do
     visit flights_path
 
     expect(page).to have_content("All The Flights")
-    save_and_open_page
+  
     within("#flight-#{@flight1.id}") do 
       expect(page).to have_content("Flight Number: #{@flight1.number}")
       expect(page).to have_content("Airline: #{@flight1.airline.name}")
@@ -47,6 +47,26 @@ RSpec.describe "Flights Index Page", type: :feature do
       expect(page).to have_content("Flight Number: #{@flight3.number}")
       expect(page).to have_content("Airline: #{@flight3.airline.name}")
       expect(page).to have_content("Passengers:")
+      expect(page).to have_content("Wolfie")
+    end
+  end
+
+  it "has buttons to remove passengers from a flight" do 
+    visit flights_path
+
+    click_button "Remove Wolfie from 9376"
+
+    expect(current_path).to eq(flights_path)
+
+    within("#flight-#{@flight3.id}") do 
+      expect(page).to_not have_content("Wolfie")
+    end
+    
+    within("#flight-#{@flight2.id}") do 
+      expect(page).to have_content("Wolfie")
+    end
+
+    within("#flight-#{@flight1.id}") do 
       expect(page).to have_content("Wolfie")
     end
   end
