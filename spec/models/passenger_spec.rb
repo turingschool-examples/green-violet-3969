@@ -5,7 +5,7 @@ RSpec.describe Passenger do
     it { should have_many(:flights).through(:passenger_flights) }
   end
 
-  describe "instance methods" do 
+  describe "class methods" do 
     it "#adult" do 
       @pass_1 = Passenger.create!(name: "Ricky", age: 24)
       @pass_2 = Passenger.create!(name: "Randy", age: 2)
