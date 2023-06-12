@@ -24,8 +24,8 @@ RSpec.describe Airline, type: :model do
   end
 
   describe 'instance methods' do 
-    it '#unique passengers' do 
-      expect(@airline.unique_passengers).to eq([@passenger_1, @passenger_2, @passenger_3, @passenger_4])
+    it '#unique_adult_passengers' do 
+      expect(@airline.unique_adult_passengers).to eq([@passenger_2, @passenger_3, @passenger_4])
     end
   end
 end

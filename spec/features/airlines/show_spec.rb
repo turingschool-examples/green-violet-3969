@@ -22,10 +22,10 @@ RSpec.describe 'Airline Show Page' do
   describe "Airline's Passengers" do 
     it 'airline show page has list of adult passengers without duplicates' do 
       within("#passengers") do 
-        expect(page).to_not have_content(@passenger_1.name, count: 1)
-        expect(page).to have_content(@passenger_2.name, count: 1)
-        expect(page).to have_content(@passenger_3.name, count: 1)
-        expect(page).to have_content(@passenger_4.name, count: 1)
+        expect(page).to_not have_content("Passenger Name: #{@passenger_1.name}", count: 1)
+        expect(page).to have_content("Passenger Name: #{@passenger_2.name}", count: 1)
+        expect(page).to have_content("Passenger Name: #{@passenger_3.name}", count: 1)
+        expect(page).to have_content("Passenger Name: #{@passenger_4.name}", count: 1)
       end
     end
   end

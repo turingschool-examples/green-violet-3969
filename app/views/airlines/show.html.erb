@@ -1,7 +1,5 @@
 <section id="passengers">
-  <%= @airline.unique_passengers.each do |passenger| %>
-    <% if passenger.adult? %>
-      <%= passenger.name %>
-    <% end %>
+  <%= @airline.unique_adult_passengers.each do |passenger| %>
+      <p>Passenger Name: <%= passenger.name %></p>
   <% end %>
 </section>
