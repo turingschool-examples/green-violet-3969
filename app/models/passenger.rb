@@ -1,0 +1,3 @@
+class Passneger < ApplicationRecord
+  
+end
