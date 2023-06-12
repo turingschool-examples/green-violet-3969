@@ -1,0 +1,11 @@
+<h1>Flights Index Page</h1>
+<% @flights.each do |flight| %>
+  <p><%= flight.number %></p>
+  <p>Airline: <%= flight.airline.name %></p>
+  <p>Passengers:</p>
+  <ul>
+    <% flight.passengers.each do |passenger| %>
+      <li><%= passenger.name %></li>
+    <% end %>
+  </ul>
+<% end %>
