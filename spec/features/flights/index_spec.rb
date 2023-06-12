@@ -53,7 +53,7 @@ RSpec.describe "Flights Index Page", type: :feature do
 
   it "has buttons to remove passengers from a flight" do 
     visit flights_path
-save_and_open_page
+
     click_button "Remove Wolfie from 9376"
 
     expect(current_path).to eq(flights_path)

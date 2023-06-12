@@ -25,6 +25,8 @@ Airline.destroy_all
 @passenger1 = Passenger.create!(name: "Wolfie", age: 2)
 @passenger2 = Passenger.create!(name: "Maggie", age: 7)
 @passenger3 = Passenger.create!(name: "Circe", age: 3)
+@passenger4 = Passenger.create!(name: "K.D.", age: 37)
+@passenger5 = Passenger.create!(name: "Bob", age: 38)
 
 @pass_flight1 = PassengerFlight.create!(passenger_id: @passenger1.id, flight_id: @flight1.id)
 @pass_flight2 = PassengerFlight.create!(passenger_id: @passenger2.id, flight_id: @flight1.id)
@@ -32,3 +34,7 @@ Airline.destroy_all
 @pass_flight4 = PassengerFlight.create!(passenger_id: @passenger1.id, flight_id: @flight2.id)
 @pass_flight5 = PassengerFlight.create!(passenger_id: @passenger1.id, flight_id: @flight3.id)
 @pass_flight6 = PassengerFlight.create!(passenger_id: @passenger2.id, flight_id: @flight2.id)
+@pass_flight6 = PassengerFlight.create!(passenger_id: @passenger4.id, flight_id: @flight2.id)
+@pass_flight6 = PassengerFlight.create!(passenger_id: @passenger4.id, flight_id: @flight1.id)
+@pass_flight6 = PassengerFlight.create!(passenger_id: @passenger5.id, flight_id: @flight1.id)
+@pass_flight6 = PassengerFlight.create!(passenger_id: @passenger5.id, flight_id: @flight2.id)
