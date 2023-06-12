@@ -24,6 +24,7 @@ RSpec.describe "Flights Index Page" do
   let!(:aa1_pass3) { FlightPassenger.create!(passenger_id: aapassenger3.id, flight_id: aaflight1.id)}
   let!(:aa1_pass4) { FlightPassenger.create!(passenger_id: aapassenger4.id, flight_id: aaflight1.id)}
 
+  let!(:jb1_pass4) { FlightPassenger.create!(passenger_id: aapassenger4.id, flight_id: jbflight2.id)}
   let!(:aa2_pass5) { FlightPassenger.create!(passenger_id: aapassenger5.id, flight_id: jbflight2.id)}
   let!(:aa2_pass6) { FlightPassenger.create!(passenger_id: aapassenger6.id, flight_id: jbflight2.id)}
   let!(:aa2_pass7) { FlightPassenger.create!(passenger_id: aapassenger7.id, flight_id: jbflight2.id)}
@@ -53,6 +54,18 @@ RSpec.describe "Flights Index Page" do
         expect(page).to have_content(aapassenger7.name)
         expect(page).to have_content(aapassenger8.name)
       end
+    end
+
+    it "has link or button to remove that passenger from that flight" do
+      visit flights_path
+
+      within("#flight-#{aaflight1.id}") do
+        expect(page).to have_content(aapassenger4.name)
+        expect(page).to have_link("Remove #{aapassenger4.name}")
+        click_link("Remove #{aapassenger4.name}")
+        expect(page).to_not have_content(aapassenger4.name)
+      end
+
     end
   end
 end
