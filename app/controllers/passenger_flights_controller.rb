@@ -5,10 +5,4 @@ class PassengerFlightsController < ApplicationController
     passenger_flight.destroy
     redirect_to flights_path
   end
-
-  private
-
-  def p_flight_params
-    params.permit(:passenger_id, :flight_id)
-  end
 end

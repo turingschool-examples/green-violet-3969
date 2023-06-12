@@ -4,6 +4,6 @@ class Airline < ApplicationRecord
    has_many :passengers, through: :passenger_flights
 
    def passenger_names
-      passengers.where('passengers.age > 17').distinct.pluck(:name)
+      passengers.where('passengers.age >= 18').distinct.pluck(:name)
    end
 end
