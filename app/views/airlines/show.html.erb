@@ -1,5 +1,3 @@
-<% @airline.passengers.distinct.each do |passenger| %>
-  <% if passenger.adult? %>
-    <%= passenger.name %>
+<% @airline.passengers.adult.each do |passenger| %>
+    <%= passenger %>
   <% end %>
-<% end %>

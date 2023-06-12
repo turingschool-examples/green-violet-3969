@@ -59,11 +59,9 @@ RSpec.describe "Flights Index Page" do
       expect(current_path).to eq("/flights")
       expect(page).to_not have_content(@pass_1.name)
     end 
-    
+
     within("#flight-#{@flight_2.id}") do 
       expect(page).to have_content(@pass_1.name)
     end
   end
-
-
 end
