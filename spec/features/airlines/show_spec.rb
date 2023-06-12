@@ -28,15 +28,15 @@ RSpec.describe "/airlines/:id, airlines show page", type: :feature do
 
       expect(page).to have_content(frontier.name)
       expect(page).to have_content("All Adult Passengers:")
-      expect(page).to have_content(passenger2.name)
-      expect(page).to have_content(passenger3.name)
+      expect(page).to have_content(passenger2.name, count: 1)
+      expect(page).to have_content(passenger3.name, count: 1)
       expect(page).to_not have_content(passenger1.name)
       expect(page).to_not have_content(southwest.name)
       expect(page).to_not have_content(passenger5.name)
 
       visit "/airlines/#{southwest.id}"
       expect(page).to have_content(southwest.name)
-      expect(page).to have_content(passenger4.name)
+      expect(page).to have_content(passenger4.name, count: 1)
       expect(page).to_not have_content(passenger5.name)
     end
   end
