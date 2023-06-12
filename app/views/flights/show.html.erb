@@ -1,0 +1,8 @@
+<%= @flight.number %>
+<%= @flight.airline %>
+<p>Passengers:</p>
+<% @flight.passengers.adult?.each do |passenger| %>
+  <p>
+  Passenger: <%= passenger.name %>, age: <%= passenger.age %>
+  </p>
+<% end %>
