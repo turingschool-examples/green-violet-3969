@@ -51,27 +51,70 @@ RSpec.describe "Flights Index Page" do
         expect(page).to have_content("Airline: United")
 
         within("#passenger_names-#{@flight_1.number}") do
-          expect(page).to have_content("Bob")
-          expect(page).to have_content("Jane")
-          expect(page).to_not have_content("Joe")
-          expect(page).to_not have_content("Jill")
-          expect(page).to_not have_content("Jack")
+          expect(page).to have_content("#{@passenger_1.name}")
+          expect(page).to have_content("#{@passenger_2.name}")
+          expect(page).to_not have_content("#{@passenger_3.name}")
+          expect(page).to_not have_content("#{@passenger_4.name}")
+          expect(page).to_not have_content("#{@passenger_5.name}")
         end
 
         within("#passenger_names-#{@flight_2.number}") do
-          expect(page).to_not have_content("Bob")
-          expect(page).to_not have_content("Jane")
-          expect(page).to have_content("Joe")
-          expect(page).to_not have_content("Jill")
-          expect(page).to_not have_content("Jack")
+          expect(page).to_not have_content("#{@passenger_1.name}")
+          expect(page).to_not have_content("#{@passenger_2.name}")
+          expect(page).to have_content("#{@passenger_3.name}")
+          expect(page).to_not have_content("#{@passenger_4.name}")
+          expect(page).to_not have_content("#{@passenger_5.name}")
         end
 
         within("#passenger_names-#{@flight_3.number}") do
-          expect(page).to_not have_content("Bob")
-          expect(page).to_not have_content("Jane")
-          expect(page).to_not have_content("Joe")
-          expect(page).to have_content("Jill")
-          expect(page).to have_content("Jack")
+          expect(page).to_not have_content("#{@passenger_1.name}")
+          expect(page).to_not have_content("#{@passenger_2.name}")
+          expect(page).to_not have_content("#{@passenger_3.name}")
+          expect(page).to have_content("#{@passenger_4.name}")
+          expect(page).to have_content("#{@passenger_5.name}")
+        end
+      end
+
+      it "can remove a passenger from a flight" do
+        @passenger_flight_6 = PassengerFlight.create!(flight_id: @flight_3.id, passenger_id: @passenger_1.id)
+        visit flights_path
+
+        within("#passenger_names-#{@flight_1.number}") do
+          expect(page).to have_content("#{@passenger_1.name}")
+          expect(page).to have_content("#{@passenger_2.name}")
+          expect(page).to_not have_content("#{@passenger_3.name}")
+          expect(page).to_not have_content("#{@passenger_4.name}")
+          expect(page).to_not have_content("#{@passenger_5.name}")
+          expect(page).to have_link("Remove #{@passenger_1.name} From Flight")
+          expect(page).to have_link("Remove #{@passenger_2.name} From Flight")
+
+          click_link("Remove #{@passenger_1.name} From Flight")
+
+          expect(current_path).to eq(flights_path)
+
+          expect(page).to have_content("#{@passenger_2.name}")
+          expect(page).to_not have_content("#{@passenger_1.name}")
+          expect(page).to_not have_content("#{@passenger_3.name}")
+          expect(page).to_not have_content("#{@passenger_4.name}")
+          expect(page).to_not have_content("#{@passenger_5.name}")
+          expect(page).to have_link("Remove #{@passenger_2.name} From Flight")
+          expect(page).to_not have_link("Remove #{@passenger_1.name} From Flight")
+          expect(page).to_not have_link("Remove #{@passenger_3.name} From Flight")
+          expect(page).to_not have_link("Remove #{@passenger_4.name} From Flight")
+          expect(page).to_not have_link("Remove #{@passenger_5.name} From Flight")
+        end
+
+        within("#passenger_names-#{@flight_3.number}") do
+          expect(page).to have_content("#{@passenger_1.name}")
+          expect(page).to_not have_content("#{@passenger_2.name}")
+          expect(page).to_not have_content("#{@passenger_3.name}")
+          expect(page).to have_content("#{@passenger_4.name}")
+          expect(page).to have_content("#{@passenger_5.name}")
+          expect(page).to have_link("Remove #{@passenger_1.name} From Flight")
+          expect(page).to have_link("Remove #{@passenger_4.name} From Flight")
+          expect(page).to have_link("Remove #{@passenger_5.name} From Flight")
+          expect(page).to_not have_link("Remove #{@passenger_2.name} From Flight")
+          expect(page).to_not have_link("Remove #{@passenger_3.name} From Flight")
         end
       end
     end
