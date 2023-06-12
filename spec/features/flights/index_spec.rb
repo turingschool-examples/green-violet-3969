@@ -36,15 +36,15 @@ RSpec.describe "Flights Index Page" do
         end
 
         within("#flight_number-#{@flight_2.number}") do
-        expect(page).to have_content("Flight Number: #{@flight_2.number}")
-        expect(page).to_not have_content("Flight Number: #{@flight_1.number}")
-        expect(page).to_not have_content("Flight Number: #{@flight_3.number}")
+          expect(page).to have_content("Flight Number: #{@flight_2.number}")
+          expect(page).to_not have_content("Flight Number: #{@flight_1.number}")
+          expect(page).to_not have_content("Flight Number: #{@flight_3.number}")
         end
 
         within("#flight_number-#{@flight_3.number}") do
-        expect(page).to have_content("Flight Number: #{@flight_3.number}")
-        expect(page).to_not have_content("Flight Number: #{@flight_2.number}")
-        expect(page).to_not have_content("Flight Number: #{@flight_1.number}")
+          expect(page).to have_content("Flight Number: #{@flight_3.number}")
+          expect(page).to_not have_content("Flight Number: #{@flight_2.number}")
+          expect(page).to_not have_content("Flight Number: #{@flight_1.number}")
         end
 
         expect(page).to have_content("Airline: Delta")
@@ -59,19 +59,19 @@ RSpec.describe "Flights Index Page" do
         end
 
         within("#passenger_names-#{@flight_2.number}") do
-        expect(page).to_not have_content("Bob")
-        expect(page).to_not have_content("Jane")
-        expect(page).to have_content("Joe")
-        expect(page).to_not have_content("Jill")
-        expect(page).to_not have_content("Jack")
+          expect(page).to_not have_content("Bob")
+          expect(page).to_not have_content("Jane")
+          expect(page).to have_content("Joe")
+          expect(page).to_not have_content("Jill")
+          expect(page).to_not have_content("Jack")
         end
 
         within("#passenger_names-#{@flight_3.number}") do
-        expect(page).to_not have_content("Bob")
-        expect(page).to_not have_content("Jane")
-        expect(page).to_not have_content("Joe")
-        expect(page).to have_content("Jill")
-        expect(page).to have_content("Jack")
+          expect(page).to_not have_content("Bob")
+          expect(page).to_not have_content("Jane")
+          expect(page).to_not have_content("Joe")
+          expect(page).to have_content("Jill")
+          expect(page).to have_content("Jack")
         end
       end
     end
