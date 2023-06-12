@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "flights show" do
+RSpec.describe Passenger, type: :model do
   before(:each) do
     @airline_1 = Airline.create!(name: "BlueJet")
     @airline_2 = Airline.create!(name: "Atled")
@@ -15,15 +15,10 @@ RSpec.describe "flights show" do
     @passenger_7 = @flight_2.passengers.create!(name: "Aaron", age: 45)
     @passenger_8 = @flight_2.passengers.create!(name: "Derek", age: 50)
     @passenger_1 = @flight_2.passengers.create!(name: "Bob", age: 12)
-
   end
-  it "can display passenger info" do
-    visit "/flights/#{@flight_1.id}"
-    expect(page).to have_content("Passengers:")
-    expect(page).to_not have_content("Passenger: Bob, age: 12")
-    expect(page).to have_content("Passenger: Bill, age: 18")
-    expect(page).to have_content("Passenger: Joe, age: 40")
-    expect(page).to have_content("Passenger: Frank, age: 60")
+  describe "class methods" do
+    it "adult?" do
+      expect(Passenger.adult?).to match_array([@passenger_2, @passenger_3, @passenger_4, @passenger_5, @passenger_6, @passenger_7, @passenger_8])
+    end
   end
-
 end
