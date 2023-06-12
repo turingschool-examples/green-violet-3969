@@ -66,6 +66,11 @@ RSpec.describe "Flights Index Page" do
         expect(page).to_not have_content(aapassenger4.name)
       end
 
+      within("#flight-#{jbflight2.id}") do
+        expect(page).to have_content(aapassenger4.name)
+        click_link("Remove #{aapassenger4.name}")
+        expect(page).to_not have_content(aapassenger4.name)
+      end
     end
   end
 end

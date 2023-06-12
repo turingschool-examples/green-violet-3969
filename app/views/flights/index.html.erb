@@ -6,9 +6,9 @@
     <li>Flight Number: <%= flight.number %> </li>
     <li>Flight Airline: <%= flight.airline.name %> </li>
     <li>Passengers <% flight.passengers.each do |passenger| %> 
-      <%= passenger.name %><br>
+      <%= passenger.name %> <%= link_to "Remove #{passenger.name}", "/flights/#{flight.id}/passengers/#{passenger.id}", method: :delete %><br>
       <% end %>
-    </li>
+    </li><br>
   </div>
   <% end %>
 </ul>
