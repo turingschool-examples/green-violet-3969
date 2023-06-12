@@ -1,8 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "the flights index page" do
-# User Story 1, Flights Index Page
-  it "displays flight numbers, airline name, and passengers on that flight" do 
+  before(:each) do
     @airline1 = Airline.create!(name: "Southwest")
     @airline2 = Airline.create!(name: "Delta")
     @flight1 = @airline1.flights.create!(number: "1727", date: "08/03/23", departure_city: "Denver", arrival_city: "Reno")
@@ -20,9 +19,13 @@ RSpec.describe "the flights index page" do
     @passenger8 = @flight3.passengers.create!(name: "Mike", age: "31")
     @passenger9 = @flight4.passengers.create!(name: "Teresa", age: "65")
     @passenger10 = @flight5.passengers.create!(name: "Eric", age: "22")
+    FlightPassenger.create!(flight: @flight1, passenger: @passenger10)
 
     visit "/flights"
-
+  end
+  
+# User Story 1, Flights Index Page
+  it "displays flight numbers, airline name, and passengers on that flight" do 
     expect(page).to have_content("#{@flight1.number} #{@airline1.name}")
     expect(page).to have_content("#{@flight2.number} #{@airline1.name}")
     expect(page).to have_content("#{@flight3.number} #{@airline1.name}")
@@ -34,6 +37,7 @@ RSpec.describe "the flights index page" do
       expect(page).to have_content("#{@passenger2.name}")
       expect(page).to have_content("#{@passenger3.name}")
       expect(page).to have_content("#{@passenger4.name}")
+      expect(page).to have_content("#{@passenger10.name}")
     end
 
     within "##{@flight2.number}" do
@@ -51,6 +55,24 @@ RSpec.describe "the flights index page" do
     end
 
     within "##{@flight5.number}" do
+      expect(page).to have_content("#{@passenger10.name}")
+    end
+  end
+# User Story 2, Remove a Passenger from a Flight
+  xit "can remove a passenger from a flight" do 
+    within "##{@flight1.number}" do
+      expect(page).to have_content("#{@passenger10.name}")
+    end
+
+    within "##{@flight5.number}" do
+      expect(page).to have_content("#{@passenger10.name} Remove Passenger")
+      expect(page).to have_link("Remove Passenger")
+      click_link("Remove Passenger")
+      expect(current_path).to eq("/flights")
+      expect(page).to_not have_content("#{@passenger10.name}")
+    end
+
+    within "##{@flight1.number}" do
       expect(page).to have_content("#{@passenger10.name}")
     end
   end
