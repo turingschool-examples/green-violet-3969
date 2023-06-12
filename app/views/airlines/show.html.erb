@@ -1,0 +1,7 @@
+<h1> <%= @airline.name %> Show Page </h1>
+
+<div id="airline-passengers">
+  <% @airline.passengers.each do |passenger|%>
+    <%= passenger.name %>
+  <% end %>
+</div>
