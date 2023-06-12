@@ -39,13 +39,59 @@ RSpec.describe "the flights index page" do
       expect(page).to have_content("#{flight_1.number} - #{flight_1.airline.name}")
       expect(page).to have_content("Passengers:")
 
+      expect(page).to have_content(passenger_1.name)
+      expect(page).to have_content(passenger_2.name)
+      expect(page).to have_content(passenger_3.name)
+
+      expect(page).to_not have_content(passenger_4.name)
+      expect(page).to_not have_content(passenger_5.name)
+    end
+
+    within("#flight-#{flight_2.id}") do
+      expect(page).to have_content("#{flight_2.number} - #{flight_2.airline.name}")
+      expect(page).to have_content("Passengers:")
+
+      expect(page).to have_content(passenger_1.name)
+      expect(page).to have_content(passenger_3.name)
+
+      expect(page).to_not have_content(passenger_2.name)
+      expect(page).to_not have_content(passenger_4.name)
+      expect(page).to_not have_content(passenger_5.name)
+    end
+
+    within("#flight-#{flight_3.id}") do
+      expect(page).to have_content("#{flight_3.number} - #{flight_3.airline.name}")
+      expect(page).to have_content("Passengers:")
+
+      expect(page).to have_content(passenger_4.name)
+      expect(page).to have_content(passenger_5.name)
+
+      expect(page).to_not have_content(passenger_1.name)
+      expect(page).to_not have_content(passenger_2.name)
+      expect(page).to_not have_content(passenger_3.name)
+    end
+  end
+
+  it "has a link to remove a passenger from a single flight" do
+    within("#flight-#{flight_2.id}") do
+      expect(page).to have_content(passenger_1.name)
+    end
+
+    within("#flight-#{flight_1.id}") do
       within("#passenger-#{passenger_1.id}") do
         expect(page).to have_content(passenger_1.name)
+        expect(page).to have_button("Remove #{passenger_1.name}")
       end
 
-      within("#passenger-#{passenger_2.id}") do
-        expect(page).to have_content(passenger_2.name)
-      end
+      click_button "Remove #{passenger_1.name}"
+
+      expect(current_path).to eq(flights_path)
+
+      expect(page).to_not have_content(passenger_1.name)
+    end
+
+    within("#flight-#{flight_2.id}") do
+      expect(page).to have_content(passenger_1.name)
     end
   end
 end
