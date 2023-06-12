@@ -1,0 +1,7 @@
+<h1> Airline Show</h1>
+<div class="adult_passengers">
+  <h2> Adult Passengers </h2>
+  <% @airline.list_adult_passengers.each do |adult_passenger| %>
+    <p><%= adult_passenger %></p>
+  <% end %>
+</div>  
