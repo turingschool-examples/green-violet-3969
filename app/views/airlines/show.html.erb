@@ -1,0 +1,9 @@
+<h1>Welcome To <%= @airline.name %>!</h1>
+
+<div id="passengers">
+  <% @airline.flights.map do |flight| %>
+    <% flight.passengers.each do |passenger| %>
+      <p><%= passengers.name %></p>
+    <% end %>
+  <% end %>
+</div> 
