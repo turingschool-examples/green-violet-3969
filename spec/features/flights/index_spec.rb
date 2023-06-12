@@ -36,17 +36,6 @@ RSpec.describe "flight#index", type: :feature do
     end
   end
 
-  # User Story 2, Remove a Passenger from a Flight
-
-  # As a visitor
-  # When I visit the flights index page
-  # Next to each passengers name
-  # I see a link or button to remove that passenger from that flight
-  # When I click on that link/button
-  # I'm returned to the flights index page
-  # And I no longer see that passenger listed under that flight,
-  # And I still see the passenger listed under the other flights they were assigned to.
-
   it "can remove a passenger from the flight" do
     visit flights_path
 
