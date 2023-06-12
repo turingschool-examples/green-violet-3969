@@ -29,9 +29,9 @@ RSpec.describe Airline, type: :model do
       @pf7 = PassengerFlight.create!(passenger: @passenger_5, flight: @flight_1)
 
     end
-    describe "#passenger_unique"
+    describe "#passenger_unique_adult"
       it "will show all passengers of that airline uniquely" do
-        expect(@sw.passengers_unique).to eq([@passenger_1, @passenger_2, @passenger_3, @passenger_4])
+        expect(@sw.passengers_unique_adult).to eq([@passenger_1, @passenger_2, @passenger_3, @passenger_4])
       end
   end
 end

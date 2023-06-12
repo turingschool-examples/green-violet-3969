@@ -1,5 +1,5 @@
 <h1><%= @airline.name %></h1>
 
-<p>Passengers: <% @airline.passengers_unique.each do |passenger| %></p>
+<p>Passengers: <% @airline.passengers_unique_adult.each do |passenger| %></p>
   <p><%= passenger.name  %></p>
 <% end %>
