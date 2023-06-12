@@ -32,7 +32,7 @@ RSpec.describe "Airline's Show Page" do
   describe "As a visitor, when I visit an Airline's show page" do
     it "displays a list of passengers that have flights on that airline, uniquley and are older that 18"  do
       visit "/airlines/#{@sw.id}"
-
+      
       expect(page).to have_content(@passenger_1.name, count: 1)
       expect(page).to have_content(@passenger_2.name)
       expect(page).to have_content(@passenger_3.name, count: 1)

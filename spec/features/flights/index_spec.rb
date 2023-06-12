@@ -57,7 +57,7 @@ RSpec.describe "Flights Index Page" do
       visit "/flights"
 
       within "#flight-#{@flight_1.id}"do
-       expect(page).to have_button("Remove #{@passenger_1.name}")
+        expect(page).to have_button("Remove #{@passenger_1.name}")
       end
     end
 
