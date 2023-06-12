@@ -4,7 +4,7 @@
   <% @flights.each do |flight| %>
     <h3>Flight: #<%= flight.number %> - Airline: <%= flight.airline.name %></h3>
     <% flight.passengers.each do |passenger| %>
-      <p>Passenger: <%= passenger.name %></>
+      <p>Passenger: <%= passenger.name %> <%= button_to "Remove Passenger #{passenger.name} From Flight ##{flight.number}", "/flights/#{flight.id}/bookings", params: {:passenger_id => passenger.id}, method: :delete %></p>
     <%end %>
   <% end %>
 </div>

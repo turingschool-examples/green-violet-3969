@@ -5,4 +5,6 @@ Rails.application.routes.draw do
   # root "articles#index"
 
   get "/flights", to: "flights#index"
+
+  delete "/flights/:flight_id/bookings", to: "bookings#destroy"
 end
