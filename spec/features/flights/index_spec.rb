@@ -5,9 +5,16 @@ RSpec.describe "/flights" do
     describe "when I visit a flights index page" do
 
       let!(:airline_1) { Airline.create!(name: "Delta") }
+      let!(:airline_2) { Airline.create!(name: "Southwest") }
+
       let!(:flight_1) { Flight.create!(number: "FUK666", date: "9/12/84", departure_city: "DEN", arrival_city: "BOS", airline_id: airline_1.id) }
       let!(:flight_2) { Flight.create!(number: "GO324D", date: "9/12/87", departure_city: "DEN", arrival_city: "LAX", airline_id: airline_1.id) }
       let!(:flight_3) { Flight.create!(number: "CRAPSTRT", date: "9/12/20", departure_city: "DEN", arrival_city: "NOL", airline_id: airline_1.id) }
+
+      let!(:flight_4) { Flight.create!(number: "BIN34D", date: "8/11/20", departure_city: "DEN", arrival_city: "NOL", airline_id: airline_2.id) }
+      let!(:flight_5) { Flight.create!(number: "B3434D", date: "8/8/20", departure_city: "DEN", arrival_city: "BOS", airline_id: airline_2.id) }
+      let!(:flight_6) { Flight.create!(number: "BDR84D", date: "6/23/20", departure_city: "DEN", arrival_city: "BOS", airline_id: airline_2.id) }
+
 
       let!(:pass_1) { Passenger.create!(name: "Joey", age: 37) }
       let!(:pass_2) { Passenger.create!(name: "Ike", age: 12) }
@@ -20,26 +27,35 @@ RSpec.describe "/flights" do
 
       let!(:flight_pass_4) { FlightPassenger.create!(flight_id: flight_2.id, passenger_id: pass_2.id ) }
 
+      let!(:flight_pass_5) { FlightPassenger.create!(flight_id: flight_3.id, passenger_id: pass_4.id ) }
+
 
       # Story 1
 
-      it "displays a list of flights" do
+      it "displays a list of flights, flight numbers and flight passengers per flight" do
         visit flights_path
 
-        expect(page).to have_content("Flight Number: #{flight_1.number}")
-        expect(page).to have_content("Flight Name: #{flight_1.airline.name}")
-        expect(page).to have_content("Passengers:")
-        expect(page).to have_content(pass_1.name)
-        expect(page).to have_content(pass_2.name)
-        expect(page).to have_content(pass_3.name)
+        within "##{flight_1.number}" do
+          expect(page).to have_content("Flight Number: #{flight_1.number}")
+          expect(page).to have_content("Flight Name: #{flight_1.airline.name}")
+          expect(page).to have_content("Passengers:")
+          expect(page).to have_content(pass_1.name)
+          expect(page).to have_content(pass_2.name)
+          expect(page).to have_content(pass_3.name)
+        end
 
-        expect(page).to have_content(flight_2.number)
-        expect(page).to have_content(flight_2.airline.name)
-        expect(page).to have_content(pass_1.name)
+        within "##{flight_2.number}" do
+          expect(page).to have_content(flight_2.number)
+          expect(page).to have_content(flight_2.airline.name)
+          expect(page).to have_content(pass_2.name)
+          expect(page).to_not have_content(pass_1.name)
+        end
 
-        expect(page).to have_content(flight_3.number)
-        expect(page).to have_content(flight_3.airline.name)
-
+        within "##{flight_3.number}" do
+          expect(page).to have_content(flight_3.number)
+          expect(page).to have_content(flight_3.airline.name)
+          expect(page).to have_content(pass_4.name)
+        end
       end
 
       # Story 2
@@ -47,36 +63,32 @@ RSpec.describe "/flights" do
       it "has a link or button to remove a passenger next to each passengers name" do
         visit flights_path
 
-        # within "#passengers" do
+        within "##{flight_1.number}" do
+          expect(page).to have_content(pass_1.name)
+          expect(page).to have_content(pass_2.name)
+          expect(page).to have_content(pass_3.name)
 
-        # expect(page).to have_link("Delete #{pass_1.name}", id: "delete-passenger-#{pass_1.id}")
           expect(page).to have_link "Delete #{pass_1.name}"
           expect(page).to have_link "Delete #{pass_2.name}"
           expect(page).to have_link "Delete #{pass_3.name}"
 
-        click_link "Delete #{pass_1.name}"
-        # end
-
-        # click_link "Delete #{pass_1.name}"
-        # find("#delete-passenger-#{pass_1.id}").click
+          click_link "Delete #{pass_1.name}"
+        end
 
         expect(current_path).to eq(flights_path)
 
-        expect(page).to_not have_link("Delete #{pass_1.name}", id: "delete-passenger-#{pass_1.id}")
-
-        # within "#passengers" do
-          expect(page).to_not have_link("Delete #{pass_1.name}")
+        within "##{flight_1.number}" do
+          expect(page).to have_content(pass_2.name)
+          expect(page).to have_content(pass_3.name)
           expect(page).to have_link("Delete #{pass_2.name}")
           expect(page).to have_link("Delete #{pass_3.name}")
-        # end
-        # expect(page).to have_link "Delete #{pass_2.name}"
-        # expect(page).to have_link "Delete #{pass_3.name}"
+
+          expect(page).to_not have_content(pass_1.name)
+          expect(page).to_not have_link("Delete #{pass_1.name}")
+        end
       end
     end
-
   end
-
-
 end
 
 
@@ -100,9 +112,3 @@ end
 # And I still see the passenger listed under the other flights they were assigned to.
 
 
-# <% flight.passengers.each do |passenger| %>
-#   <%= passenger.name %>
-# <% end %>
-
-# <div id="passengers">
-# </div>

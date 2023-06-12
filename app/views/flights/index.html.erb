@@ -1,6 +1,7 @@
 <h3> Flights </h3>
 <ol>
 <% @flights.each do |flight| %>
+  <div id="<%= flight.number %>">
     <li>Flight Number: <%= flight.number %></li>
     <p>Flight Name: <%= flight.airline.name %></p>
     <p>Passengers: </p>
@@ -8,10 +9,11 @@
     <% flight.passengers.each do |passenger| %>
       <li><%= passenger.name %></li>
 
-        <%= link_to "Delete #{passenger.name}", flight_passenger_path(flight, passenger), method: :delete, id: dom_id(passenger, 'delete-passenger') %>
+        <%= link_to "Delete #{passenger.name}", flight_passenger_path(flight, passenger), method: :delete %>
 
     <% end %>
     </ul>
+    </div>
 <% end %>
 </ol>
 

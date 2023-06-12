@@ -9,5 +9,4 @@ Rails.application.routes.draw do
   end
 
   resources :airlines, only: [:show]
-
 end

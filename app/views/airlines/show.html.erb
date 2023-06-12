@@ -1,3 +1,4 @@
-<%= @airline.current_passengers.each do |passenger| %>
-  <p><%= passenger.name %></p>
+<h3> <%= @airline.name %> Passengers </h3>
+<% @airline.current_passengers.each do |passenger| %>
+  <p><%= passenger %></p>
   <% end %>
