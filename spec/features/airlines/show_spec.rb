@@ -30,6 +30,7 @@ RSpec.describe "Airlines Show Page", type: :feature do
   end
   it "displays a unique list of adult passengers" do 
 
+    expect(page).to have_content("Airline: #{@airline1.name}")
     expect(page).to have_content("Passengers:")
     expect(page).to have_content("K.D.")
     expect(page).to have_content("Bob")
