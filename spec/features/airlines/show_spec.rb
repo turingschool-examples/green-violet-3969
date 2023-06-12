@@ -18,7 +18,7 @@ RSpec.describe "Airline Show Page" do
   end
 
   it "displays list of unique adult passengers that have flights on the airline" do 
-    visit "/airlines/#{@frontier.id}"
+    visit airline_path(@frontier)
   
     expect(page).to have_content(@pass_1.name)
     expect(page).to have_content(@pass_3.name)
