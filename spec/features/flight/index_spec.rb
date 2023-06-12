@@ -21,7 +21,7 @@ RSpec.describe "the flights index page" do
     @passenger9 = @flight4.passengers.create!(name: "Teresa", age: "65")
     @passenger10 = @flight5.passengers.create!(name: "Eric", age: "22")
 
-    visit "/fights"
+    visit "/flights"
 
     expect(page).to have_content("#{@flight1.number} #{@airline1.name}")
     expect(page).to have_content("#{@flight2.number} #{@airline1.name}")
@@ -29,28 +29,28 @@ RSpec.describe "the flights index page" do
     expect(page).to have_content("#{@flight4.number} #{@airline1.name}")
     expect(page).to have_content("#{@flight5.number} #{@airline2.name}")
 
-    within "#{@flight1.number}" do
+    within "##{@flight1.number}" do
       expect(page).to have_content("#{@passenger1.name}")
       expect(page).to have_content("#{@passenger2.name}")
       expect(page).to have_content("#{@passenger3.name}")
       expect(page).to have_content("#{@passenger4.name}")
     end
 
-    within "#{@flight2.number}" do
+    within "##{@flight2.number}" do
       expect(page).to have_content("#{@passenger5.name}")
       expect(page).to have_content("#{@passenger6.name}")
       expect(page).to have_content("#{@passenger7.name}")
     end
 
-    within "#{@flight3.number}" do
+    within "##{@flight3.number}" do
       expect(page).to have_content("#{@passenger8.name}")
     end
 
-    within "#{@flight4.number}" do
+    within "##{@flight4.number}" do
       expect(page).to have_content("#{@passenger9.name}")
     end
 
-    within "#{@flight5.number}" do
+    within "##{@flight5.number}" do
       expect(page).to have_content("#{@passenger10.name}")
     end
   end
