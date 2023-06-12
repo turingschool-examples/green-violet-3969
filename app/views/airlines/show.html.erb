@@ -1,4 +1,4 @@
-<h1> @airline.name </h1>
+<h1><%= @airline.name %></h1>
 <h3>All Adult Passengers:</h3>
 <ul>
   <% @airline.adult_passengers_distinct.each do |passenger| %>
