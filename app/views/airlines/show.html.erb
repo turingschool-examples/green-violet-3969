@@ -1,1 +1,7 @@
-<h1></h1>
+<h1><%= @airline.name %> Show Page</h1>
+
+<ul>
+  <% @airline.unique_adult_passengers.each do |passenger| %>
+    <li><%= passenger.name %></li>
+  <% end %>
+</ul>
