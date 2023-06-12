@@ -27,4 +27,16 @@ RSpec.describe "airline#show", type: :feature do
       expect(page).not_to have_content(@passenger3.name)
     end
   end
+
+  # Extension, Frequent Flyers
+
+  # As a visitor
+  # When I visit an airline's show page,
+  # Then I see that the list of adult passengers is sorted
+  # by the number of flights each passenger has taken on the airline from most to least
+
+  # (Note: you should only make 1 database query to retrieve the sorted list of passengers)
+
+
+
 end
