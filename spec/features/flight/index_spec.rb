@@ -65,10 +65,10 @@ RSpec.describe "the flights index page" do
     end
 
     within "##{@flight5.number}" do
-      expect(page).to have_content("#{@passenger10.name} Remove Passenger")
+      expect(page).to have_content("#{@passenger10.name}")
       expect(page).to have_button("Remove Passenger")
       click_button("Remove Passenger")
-# save_and_open_page
+
       expect(current_path).to eq("/flights")
       expect(page).to_not have_content("#{@passenger10.name}")
     end
@@ -78,6 +78,3 @@ RSpec.describe "the flights index page" do
     end
   end
 end
-# <p><%= passenger.name %> <%= link_to "Remove Passenger", "/flights/update" %></p>
-# <p><%= passenger.name %> <%= link_to "Remove Passenger", "/flights" %></p>
-# <%= button_to "Remove Passenger", method: :delete %></p>

@@ -4,7 +4,9 @@
   <div id="<%= flight.number %>">
     <p><b><%= flight.number %></b> <%= flight.airline.name %></p>
     <% flight.passengers.each do |passenger| %>  
-      <p><%= passenger.name %> <%= button_to "Remove Passenger", method: :delete %></p>
+      <p><%= passenger.name %> <%= form_with(url: remove_passenger_path(flight_id: flight.id, passenger_id: passenger.id), method: :delete, local: true) do |form| %>
+        <%= form.submit "Remove Passenger" %>
+      <% end %>
     <% end %>
   </div>
 <% end %>
