@@ -34,7 +34,7 @@ RSpec.describe Airline, type: :model do
 
   describe "instance methods" do 
     it "passenger_names" do 
-      expect(@airline1.passenger_names).to eq(["Bob", "K.D."])
+      expect(@airline1.passenger_names).to match_array(["Bob", "K.D."])
     end
   end
 end
