@@ -26,41 +26,52 @@ RSpec.describe "Flights Index Page" do
     describe "When I visit the flights index page" do
       it "I see a list of all flight numbers, including name of airline of that flight and names of passengers" do
         visit flights_path
-save_and_open_page
+
         expect(page).to have_content("Flights Index Page")
 
         within("#flight_number-#{@flight_1.number}") do
-          expect(page).to have_content("Flight Number: 123")
+          expect(page).to have_content("Flight Number: #{@flight_1.number}")
+          expect(page).to_not have_content("Flight Number: #{@flight_2.number}")
+          expect(page).to_not have_content("Flight Number: #{@flight_3.number}")
         end
 
         within("#flight_number-#{@flight_2.number}") do
-          expect(page).to have_content("Flight Number: 456")
+        expect(page).to have_content("Flight Number: #{@flight_2.number}")
+        expect(page).to_not have_content("Flight Number: #{@flight_1.number}")
+        expect(page).to_not have_content("Flight Number: #{@flight_3.number}")
         end
 
         within("#flight_number-#{@flight_3.number}") do
-          expect(page).to have_content("Flight Number: 789")
+        expect(page).to have_content("Flight Number: #{@flight_3.number}")
+        expect(page).to_not have_content("Flight Number: #{@flight_2.number}")
+        expect(page).to_not have_content("Flight Number: #{@flight_1.number}")
         end
 
-        # within("#airline-#{@airline_1.name}") do
-          expect(page).to have_content("Airline: Delta")
-        # end
-
-        # within("#airline-#{@airline_2.name}") do
-          expect(page).to have_content("Airline: United")
-        # end
+        expect(page).to have_content("Airline: Delta")
+        expect(page).to have_content("Airline: United")
 
         within("#passenger_names-#{@flight_1.number}") do
           expect(page).to have_content("Bob")
           expect(page).to have_content("Jane")
+          expect(page).to_not have_content("Joe")
+          expect(page).to_not have_content("Jill")
+          expect(page).to_not have_content("Jack")
         end
 
         within("#passenger_names-#{@flight_2.number}") do
-          expect(page).to have_content("Joe")
+        expect(page).to_not have_content("Bob")
+        expect(page).to_not have_content("Jane")
+        expect(page).to have_content("Joe")
+        expect(page).to_not have_content("Jill")
+        expect(page).to_not have_content("Jack")
         end
 
         within("#passenger_names-#{@flight_3.number}") do
-          expect(page).to have_content("Jill")
-          expect(page).to have_content("Jack")
+        expect(page).to_not have_content("Bob")
+        expect(page).to_not have_content("Jane")
+        expect(page).to_not have_content("Joe")
+        expect(page).to have_content("Jill")
+        expect(page).to have_content("Jack")
         end
       end
     end
